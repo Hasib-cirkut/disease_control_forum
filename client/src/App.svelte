@@ -1,30 +1,23 @@
 <script>
-	export let name;
+	import { Router, Link, Route } from "svelte-routing";
+	import Login from './Pages/Login_Signup.svelte'
+	import Home from './Pages/Home.svelte'
+	import About from './Pages/About.svelte'
+	import NotFound from './Pages/NotFound.svelte'
+
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+<Router>
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+	<div>
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+		<Route path="/" exact component={Home} />
+		<Route path="/login" exact component={Login} />
+		<Route path="/about" exact component={About} />
+		<Route component={NotFound} />
+	
+	</div>
+
+</Router>
+
