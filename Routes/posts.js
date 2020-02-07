@@ -5,8 +5,13 @@ const router = express.Router()
 const PostModel = require('../Models/Post')
 
 
-router.get('/', (req, res)=>{
-    res.send('Here in posts')
+router.get('/', async (req, res)=>{
+    try{
+        let data = await PostModel.find()
+        res.json(data)
+    }catch(err){
+        res.json({message: err})
+    }
 })
 
 router.post('/', async (req, res)=>{
@@ -23,8 +28,20 @@ router.post('/', async (req, res)=>{
     }catch(err){
 
         res.json({message: err})
-        
+
     }
+})
+
+router.delete('/:postId', async (req, res)=>{
+    try{
+        let deletedPost = await PostModel.remove({
+            _id: req.params.postId
+        })
+        res.json(deletedPost)
+    }catch(err){
+        res.json({message: err})
+    }
+    
 })
 
 
