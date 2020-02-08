@@ -1,5 +1,6 @@
 <script>
     
+    import {Link} from 'svelte-routing'
     
 </script>
 
@@ -44,12 +45,6 @@ span {
 	font-size: 12px;
 }
 
-a {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	margin: 15px 0;
-}
 
 button {
 	border-radius: 20px;
@@ -64,6 +59,10 @@ button {
 	transition: transform 80ms ease-in;
 }
 
+button:hover{
+    cursor: pointer;
+}
+
 button:active {
 	transform: scale(0.95);
 }
@@ -75,6 +74,10 @@ button:focus {
 button.ghost {
 	background-color: transparent;
 	border-color: #FFFFFF;
+}
+
+button.ghost:hover{
+	cursor: pointer;
 }
 
 form {
@@ -112,44 +115,16 @@ input {
 	position: absolute;
 	top: 0;
 	height: 100%;
-	transition: all 0.6s ease-in-out;
 }
 
-.sign-in-container {
-	left: 0;
-	width: 50%;
-	z-index: 2;
-}
-
-.container.right-panel-active .sign-in-container {
-	transform: translateX(100%);
-}
 
 .sign-up-container {
 	left: 0;
 	width: 50%;
-	opacity: 0;
 	z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
-	transform: translateX(100%);
-	opacity: 1;
-	z-index: 5;
-	animation: show 0.6s;
-}
 
-@keyframes show {
-	0%, 49.99% {
-		opacity: 0;
-		z-index: 1;
-	}
-	
-	50%, 100% {
-		opacity: 1;
-		z-index: 5;
-	}
-}
 
 .overlay-container {
 	position: absolute;
@@ -158,13 +133,9 @@ input {
 	width: 50%;
 	height: 100%;
 	overflow: hidden;
-	transition: transform 0.6s ease-in-out;
-	z-index: 100;
+	
 }
 
-.container.right-panel-active .overlay-container{
-	transform: translateX(-100%);
-}
 
 .overlay {
 	background: #FF416C;
@@ -174,7 +145,6 @@ input {
 	background-size: cover;
 	background-position: 0 0;
 	color: #FFFFFF;
-	position: relative;
 	left: -100%;
 	height: 100%;
 	width: 200%;
@@ -182,9 +152,7 @@ input {
 	transition: transform 0.6s ease-in-out;
 }
 
-.container.right-panel-active .overlay {
-  	transform: translateX(50%);
-}
+
 
 .overlay-panel {
 	position: absolute;
@@ -197,73 +165,26 @@ input {
 	top: 0;
 	height: 100%;
 	width: 50%;
-	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
+	
 }
 
-.overlay-left {
-	transform: translateX(-20%);
-}
 
-.container.right-panel-active .overlay-left {
-	transform: translateX(0);
-}
 
-.overlay-right {
-	right: 0;
-	transform: translateX(0);
-}
 
-.container.right-panel-active .overlay-right {
-	transform: translateX(20%);
-}
 
-.social-container {
-	margin: 20px 0;
-}
 
-.social-container a {
-	border: 1px solid #DDDDDD;
-	border-radius: 50%;
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0 5px;
-	height: 40px;
-	width: 40px;
-}
 
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
 
-footer p {
-    margin: 10px 0;
-}
 
-footer i {
-    color: red;
-}
 
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
-}
+
 
 </style>
 
 
 <div class="body">
 
-    <h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
+    <h2>Sign up</h2>
 <div class="container" id="container" >
 	<div class="form-container sign-up-container">
 		<form action="#">
@@ -276,38 +197,20 @@ footer a {
 			<button>Sign Up</button>
 		</form>
 	</div>
-	<div class="form-container sign-in-container">
-		<form action="#">
-			<h1>Sign in</h1>
-			
-			<span>or use your account</span>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
-			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
-		</form>
-	</div>
+	
 	<div class="overlay-container">
+
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">
 				<h1>Welcome Back!</h1>
 				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn" >Sign In</button>
-			</div>
-			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp" >Sign Up</button>
+                <Link to="/login" ><button class="ghost" id="signIn" href="/login">Sign In</button></Link>
+				
 			</div>
 		</div>
 	</div>
 </div>
 
-<footer>
-	<p>
-		
-	</p>
-</footer>
 
 </div>
 
