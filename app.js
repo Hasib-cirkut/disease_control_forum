@@ -1,19 +1,23 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+app.use(cors())
+
 const mongoose = require('mongoose')
 
 
 const postRoute = require('./Routes/posts')
+const userRoute = require('./Routes/users')
 
 //middleWare
 
 app.use(express.json())
 app.use('/posts', postRoute)
+app.use('/users', userRoute)
 app.use(express.urlencoded({
     extended: false
 }))
-app.use(cors())
+
 
 
 //conncecing to db

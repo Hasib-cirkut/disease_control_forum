@@ -1,6 +1,36 @@
 <script>
     
 	import {Link} from 'svelte-routing'
+	import Home from './Home.svelte'
+
+	let username = '', password = '';
+	let userfound = false;
+
+	const handleSignin = async e =>{
+		e.preventDefault()
+
+		let data = {username, password}
+		data = await JSON.stringify(data)
+
+		console.log(data);
+		
+
+		let receivedData = await fetch('http://localhost:3000/users/login', {
+			method: "POST",
+			
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: data
+            })
+
+		receivedData = await receivedData.json()
+
+		if(receivedData.message === 'userfound'){
+			userfound = true
+		}
+		
+	}
     
 </script>
 
@@ -231,9 +261,10 @@ footer p {
 </style>
 
 
-<div class="body">
+{#if userfound === false}
+	<div class="body">
 
-    <h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
+    <h2>Sign in</h2>
 <div class="container" id="container" >
 	<div class="form-container sign-up-container">
 		<form action="#">
@@ -251,10 +282,10 @@ footer p {
 			<h1>Sign in</h1>
 			
 			<span>or use your account</span>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
+			<input type="text" placeholder="Username" bind:value={username}/>
+			<input type="password" placeholder="Password" bind:value={password}/>
 			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
+			<button on:click={handleSignin}>Sign In</button>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -280,4 +311,7 @@ footer p {
 </footer>
 
 </div>
+{:else}
+	<Home />
+{/if}
 

@@ -192,6 +192,7 @@ input {
 			
 			<span>or use your email for registration</span>
 			<input type="text" placeholder="Name" />
+            <input type="text" placeholder="Username" />
 			<input type="email" placeholder="Email" />
 			<input type="password" placeholder="Password" />
 			<button>Sign Up</button>
