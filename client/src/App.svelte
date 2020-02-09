@@ -4,6 +4,7 @@
 	import Signup from './Pages/Signup.svelte'
 	import Home from './Pages/Home.svelte'
 	import About from './Pages/About.svelte'
+	import Profile from './Pages/Profile.svelte'
 	import NotFound from './Pages/NotFound.svelte'
 
 </script>
@@ -17,6 +18,7 @@
 		<Route path="/login" exact component={Login} />
 		<Route path="/about" exact component={About} />
 		<Route path="/signup" exact component={Signup} />
+		<Route path="/profile" exact component={Profile} />
 
 		<Route component={NotFound} />
 	

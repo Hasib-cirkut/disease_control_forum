@@ -11,8 +11,6 @@
 
 		let data = {username, password}
 		data = await JSON.stringify(data)
-
-		console.log(data);
 		
 
 		let receivedData = await fetch('http://localhost:3000/users/login', {

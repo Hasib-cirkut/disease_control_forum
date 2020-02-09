@@ -14,21 +14,36 @@ router.get('/', async (req, res)=>{
 })
 
 router.post('/addUser', async (req, res)=>{
+
+        let {name, username, email, password} = req.body
     
         let user = new UserModel({
-            name: req.body.name,
-            username: req.body.username,
-            email: req.body.email,
+            name,
+            username,
+            email,
             age: '',
             profession: '',
-            password: req.body.password
+            password
         })
-    try{
-        let savedUser = await user.save()
-        res.json(savedUser)
-    }catch(err){
-        res.json({message: err})
-    }
+
+        let receivedData = await UserModel.find({username})
+
+        if(receivedData.length === 0){
+            try{
+                let savedUser = await user.save()
+                res.json({
+                    message: 'useradded'
+                })
+            }catch(err){
+                res.json({message: err})
+            }
+        }else{
+            res.json({message: 'usernametaken'})
+        }
+
+    
+
+    
 })
 
 

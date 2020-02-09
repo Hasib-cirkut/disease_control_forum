@@ -1,6 +1,34 @@
 <script>
     
-    import {Link} from 'svelte-routing'
+	import {Link} from 'svelte-routing'
+	import Login from './Login.svelte'
+	
+	let name = '', username = '', email = '', password = '';
+	let useradded = false
+
+	const handleSignup = async e =>{
+		e.preventDefault()
+
+		let data = {name, username, email, password}
+		data = await JSON.stringify(data)
+
+		let receivedData = await fetch('http://localhost:3000/users/addUser', {
+			method: "POST",
+			
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: data
+			})
+			
+		receivedData = await receivedData.json()
+
+		if(receivedData.message === 'useradded'){
+			useradded = true
+		}
+		
+
+	}
     
 </script>
 
@@ -169,32 +197,25 @@ input {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 </style>
 
 
-<div class="body">
+{#if useradded === true}
+	<Login />
+{:else}
+	<div class="body">
 
     <h2>Sign up</h2>
 <div class="container" id="container" >
 	<div class="form-container sign-up-container">
-		<form action="#">
+		<form on:submit={handleSignup}>
 			<h1>Create Account</h1>
 			
 			<span>or use your email for registration</span>
-			<input type="text" placeholder="Name" />
-            <input type="text" placeholder="Username" />
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
+			<input type="text" placeholder="Name" bind:value={name}/>
+            <input type="text" placeholder="Username" bind:value={username}/>
+			<input type="email" placeholder="Email" bind:value={email}/>
+			<input type="password" placeholder="Password" bind:value={password}/>
 			<button>Sign Up</button>
 		</form>
 	</div>
@@ -214,4 +235,5 @@ input {
 
 
 </div>
+{/if}
 
