@@ -7,6 +7,8 @@
 	import Profile from './Pages/Profile.svelte'
 	import NotFound from './Pages/NotFound.svelte'
 
+	
+
 </script>
 
 

@@ -1,5 +1,7 @@
 
-
+<script>
+import Navbar from '../Components/Navbar.svelte'
+</script>
 
 
 <style>
@@ -53,6 +55,7 @@
 
 </style>
 
+<Navbar />
 
 <div class="body">
 
