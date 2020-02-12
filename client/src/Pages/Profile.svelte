@@ -1,6 +1,15 @@
 
 <script>
 import Navbar from '../Components/Navbar.svelte'
+import Login from '../Pages/Login.svelte'
+
+let userloggedin
+
+if(localStorage.length === 0){
+    userloggedin = false;
+}else{
+    userloggedin = true;
+}
 </script>
 
 
@@ -55,6 +64,7 @@ import Navbar from '../Components/Navbar.svelte'
 
 </style>
 
+{#if userloggedin === true}
 <Navbar />
 
 <div class="body">
@@ -74,5 +84,8 @@ import Navbar from '../Components/Navbar.svelte'
         </div>
 </div>
 
+{:else}
+<Login />
+{/if}
 
     

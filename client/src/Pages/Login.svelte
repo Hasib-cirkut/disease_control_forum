@@ -26,6 +26,7 @@
 
 		if(receivedData.message === 'userfound'){
 			userfound = true
+			localStorage.setItem('user', username)
 		}
 		
 	}

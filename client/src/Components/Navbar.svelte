@@ -1,4 +1,14 @@
+<script>
 
+    let userloggedin;
+
+    if(localStorage.length === 0){
+        userloggedin = false;
+    }else{
+        userloggedin = true;
+    }
+
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
 
@@ -68,7 +78,14 @@ button:hover{
         <li><a href="/">Home</a></li>
         <li><a href="/profile">Profile</a></li>
         <li><a href="/about">About</a></li>
+
+        {#if userloggedin === false}
         <a class="cta" href="/login"><button>Login</button></a>
+        {:else}
+        <a class="cta" href="/"><button on:click={()=>{
+            localStorage.removeItem('user')
+        }}>Logout</button></a>
+        {/if}
     </ul>
 
     
