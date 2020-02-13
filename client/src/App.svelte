@@ -5,6 +5,7 @@
 	import Home from './Pages/Home.svelte'
 	import About from './Pages/About.svelte'
 	import Profile from './Pages/Profile.svelte'
+	import Post from './Pages/Post.svelte'
 	import NotFound from './Pages/NotFound.svelte'
 
 	
@@ -21,6 +22,7 @@
 		<Route path="/about" exact component={About} />
 		<Route path="/signup" exact component={Signup} />
 		<Route path="/profile" exact component={Profile} />
+		<Route path="/post" exact component={Post} />
 
 		<Route component={NotFound} />
 	
