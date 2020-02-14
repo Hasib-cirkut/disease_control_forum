@@ -114,6 +114,8 @@
         flex-direction: column;
         margin-left: 3vw;
         margin-top: 5vh;
+
+        border: #FF00A8;
     }
 
     .main-post > p {
