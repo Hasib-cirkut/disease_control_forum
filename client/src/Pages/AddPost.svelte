@@ -1,17 +1,40 @@
 <script>
     import Navbar from '../Components/Navbar.svelte'
+    import Home from '../Pages/Home.svelte'
 
-    let title, tags, body;
+    let title = '', tags = '', body = '';
     let showTitleError = false;
+    let postAdded = false;
+    let user = localStorage.getItem('user')
 
-    const handlePublish = e =>{
+    const handlePublish = async e =>{
         e.preventDefault()
 
         if(title ==='' || title === undefined){
             showTitleError = true;
+        }else{
+
+            let data = {title, tags, body, user}
+
+            data = await JSON.stringify(data)
+
+            let reData = await fetch('http://localhost:3000/posts/addpost', {
+                method: 'POST',
+                headers: {
+                'Content-type': 'application/json'
+                },
+                body: data
+            })
+            
+            reData = await reData.json()
+
+            if(reData.message === 'postadded'){
+                postAdded = true;
+            }
+
         }
 
-        console.log({title, tags, body});
+        
         
     }
 </script>
@@ -123,7 +146,10 @@
 
 </style>
 
-<Navbar />
+{#if postAdded}
+    <Home />
+{:else}
+    <Navbar />
 
 <div class="body">
 
@@ -155,3 +181,5 @@
     </footer>
 
 </div>
+{/if}
+

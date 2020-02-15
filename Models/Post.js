@@ -5,8 +5,9 @@ var postSchema = new Schema({
     title:  String, 
     author: String,
     body:   String,
-    likes: Number,
+    likes:  Number,
     date: { type: Date, default: Date.now },
+    tags: String
 });
 
 module.exports = mongoose.model('posts', postSchema);

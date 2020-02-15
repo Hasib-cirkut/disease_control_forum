@@ -32,6 +32,28 @@ router.post('/', async (req, res)=>{
     }
 })
 
+router.post('/addpost', async (req, res)=>{
+    let {title, tags, body, user} = req.body
+
+    let post = new PostModel({
+        title,
+        author: user,
+        body,
+        likes: 0,
+        tags
+    })
+
+    try{
+        let savedPost = await post.save()
+        
+        res.json({message: 'postadded'})
+        
+    }catch(err){
+        res.json({message: err})
+    }
+    
+})
+
 router.delete('/:postId', async (req, res)=>{
     try{
         let deletedPost = await PostModel.remove({
