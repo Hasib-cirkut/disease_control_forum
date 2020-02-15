@@ -14,23 +14,17 @@ router.get('/', async (req, res)=>{
     }
 })
 
-router.post('/', async (req, res)=>{
-    let post = new PostModel({
-        title:  req.body.title, 
-        author: req.body.author,
-        body:   req.body.body
-    })
+router.get('/:id', async (req, res)=>{
     try{
-
-        let savedPost = await post.save()
-        res.json(savedPost)
-
+        let rePost = await PostModel.find({
+            _id: req.params.id
+        })
+        res.json(rePost)
     }catch(err){
-
         res.json({message: err})
-
     }
 })
+
 
 router.post('/addpost', async (req, res)=>{
     let {title, tags, body, user} = req.body

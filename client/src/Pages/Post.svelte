@@ -1,7 +1,23 @@
 <script>
     import Navbar from '../Components/Navbar.svelte'
+    import {onMount} from 'svelte'
 
     let loved = false;
+    let data;
+    let title = '', author='', body=''
+
+    onMount(async ()=>{
+        console.log('mounted');
+
+        let reData = await fetch('http://localhost:3000/posts/5e479f1a7bae9221a4fc4b94')
+        
+        reData = await reData.json()
+
+        title = reData[0].title
+        author = reData[0].author
+        body = reData[0].body
+
+    })
 </script>
 
 <style>
@@ -159,20 +175,12 @@
 
     <div class="main-post" >
 
-        <h2>This is a long title</h2>
+        <h2>{title}</h2>
 
-        <a href="/profile"><h4>@hasib</h4></a>
+        <a href="/profile"><h4>@{author}</h4></a>
 
         <p>
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Iaculis urna id volutpat lacus laoreet non curabitur gravida arcu. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl. In nibh mauris cursus mattis molestie. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Diam sollicitudin tempor id eu nisl nunc mi. Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum. Non blandit massa enim nec dui. Laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Laoreet non curabitur gravida arcu ac tortor dignissim. Bibendum ut tristique et egestas quis. Gravida neque convallis a cras semper auctor neque vitae tempus.
-
-            Sit amet nisl purus in mollis. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Orci eu lobortis elementum nibh tellus molestie nunc non blandit. Morbi leo urna molestie at elementum eu. Varius vel pharetra vel turpis nunc. In nulla posuere sollicitudin aliquam ultrices sagittis orci. Lacus viverra vitae congue eu consequat ac. Dui vivamus arcu felis bibendum ut tristique et. Lacus vestibulum sed arcu non. Id consectetur purus ut faucibus pulvinar elementum. Aliquam eleifend mi in nulla. Suspendisse interdum consectetur libero id faucibus nisl tincidunt eget nullam. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas.
-
-            Faucibus et molestie ac feugiat sed. Diam vulputate ut pharetra sit amet aliquam. Massa eget egestas purus viverra accumsan in nisl nisi. Interdum velit laoreet id donec ultrices. Et tortor consequat id porta nibh venenatis cras. Platea dictumst quisque sagittis purus sit amet. Imperdiet sed euismod nisi porta. Tincidunt ornare massa eget egestas purus viverra accumsan in nisl. Amet dictum sit amet justo. Vestibulum sed arcu non odio. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc. Nec feugiat in fermentum posuere urna. Congue mauris rhoncus aenean vel elit scelerisque mauris. Mattis enim ut tellus elementum sagittis. Enim blandit volutpat maecenas volutpat blandit. Suspendisse in est ante in nibh. Vitae turpis massa sed elementum.
-
-            Sem nulla pharetra diam sit amet nisl suscipit. Elit sed vulputate mi sit amet mauris commodo quis imperdiet. Sit amet facilisis magna etiam tempor orci. Tellus orci ac auctor augue mauris augue. Facilisi etiam dignissim diam quis enim lobortis scelerisque. Nibh tellus molestie nunc non blandit massa enim. Cursus mattis molestie a iaculis at erat pellentesque. Viverra tellus in hac habitasse. Odio morbi quis commodo odio aenean sed adipiscing. Senectus et netus et malesuada fames.
-        
+            {body}
         </p>
     
     </div>
@@ -180,7 +188,7 @@
     <div class="right-bar">
         <div id="userIntro">
             <h3>Hasibul Huda</h3>
-            <a href='/profile'><h4>@hasib</h4></a>
+            <a href='/profile'><h4>@{author}</h4></a>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             <button>Follow</button><br>
