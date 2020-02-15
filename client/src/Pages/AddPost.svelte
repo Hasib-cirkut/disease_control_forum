@@ -1,5 +1,19 @@
 <script>
     import Navbar from '../Components/Navbar.svelte'
+
+    let title, tags, body;
+    let showTitleError = false;
+
+    const handlePublish = e =>{
+        e.preventDefault()
+
+        if(title ==='' || title === undefined){
+            showTitleError = true;
+        }
+
+        console.log({title, tags, body});
+        
+    }
 </script>
 
 <style>
@@ -38,7 +52,7 @@
     }
 
     #title{
-        margin-top: 10vh;
+        margin-top: 3vh;
     }
 
     textarea{
@@ -94,6 +108,19 @@
         margin-top: 10vh;
     }
 
+    .noTitleError{
+        background: #FF380D;
+        margin: 0;
+        height: 230px;
+        text-align: center;
+    }
+
+    .noTitleError > p{
+        font-family: fantasy;
+        border: 10px black;
+        font-size: xx-large;
+    }
+
 </style>
 
 <Navbar />
@@ -103,15 +130,26 @@
     <div class="left-bar"></div>
 
     <div class="main-input">
-        <input type="text" id="title" placeholder="Title">
-        <input type="text" id="tags" placeholder="4 Tags max. space separated.">
-        <textarea id="body" cols="30" rows="30"></textarea>
+
+        {#if showTitleError}
+            <div class="noTitleError">
+                <p>You have to add title</p>
+            </div>
+        {/if}
+
+        
+
+
+            <input type="text" id="title" placeholder="Title" required bind:value={title}>
+            <input type="text" id="tags" placeholder="4 Tags max. space separated." required bind:value={tags}>
+            <textarea id="body" cols="30" rows="30" required bind:value={body}></textarea>
+        
     </div>
 
     <div class="right-bar"></div>
 
     <footer>
-        <button>Publish</button>
+        <button on:click={handlePublish}>Publish</button>
 
         <p>developed by hasib</p>
     </footer>
