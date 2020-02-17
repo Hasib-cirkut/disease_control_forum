@@ -118,7 +118,18 @@ if(localStorage.length === 0){
         width: 22vw;
     }
 
+    #work, #location, #join{
+        font-size: x-large;
+        font-family: "Montserrat", "Roboto";
+    }
 
+    #location, #join{
+        margin-top:2vh;
+    }
+
+    #work{
+        margin-top: 13vh;
+    }
 
 
 </style>
@@ -141,9 +152,14 @@ if(localStorage.length === 0){
 
                 <div class="additional-info">
 
-                    <h4>Work</h4>
-                    <h4>Location</h4>
-                    <h4>Joined</h4>
+                    <h4 id="work">Work</h4>
+                    <span id="workInfo">XYZ company</span>
+
+                    <h4 id="location">Location</h4>
+                    <span id="locationInfo">Brooklyn, NY</span>
+
+                    <h4 id="join">Joined</h4>
+                    <span id="joinInfo">20 December, 2019</span>
                 
                 </div>
             </div>
