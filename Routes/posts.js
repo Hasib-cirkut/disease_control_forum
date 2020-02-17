@@ -14,6 +14,15 @@ router.get('/', async (req, res)=>{
     }
 })
 
+router.get('/byuser/:username', async (req, res)=>{
+    try{
+        let data = await PostModel.find({author: req.params.username})
+        res.json(data)
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
 router.get('/:id', async (req, res)=>{
     try{
         let rePost = await PostModel.find({

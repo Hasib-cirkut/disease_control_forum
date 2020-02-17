@@ -3,13 +3,23 @@
 import Navbar from '../Components/Navbar.svelte'
 import Login from '../Pages/Login.svelte'
 
+import {onMount} from 'svelte'
+
 let userloggedin
+let viewData = []
 
 if(localStorage.length === 0){
     userloggedin = false;
 }else{
     userloggedin = true;
 }
+
+onMount(async()=>{
+    let reData = await fetch(`http://localhost:3000/posts/byuser/${localStorage.getItem('user')}`)
+
+    viewData = await reData.json()
+})
+
 </script>
 
 
@@ -250,17 +260,21 @@ if(localStorage.length === 0){
 
             <div class="userPosts">
 
-                <div class="post">
+            {#each viewData as post}
+                <div class="post" name={post._id}>
 
-                    <h3>This is a long title</h3>
+                    <h3>{post.title}</h3>
                     <div id="usernameANDdate">
-                        <h4>@hasib</h4>
-                        <p>Feb 17, 2020</p>
+                        <h4>@{post.author}</h4>
+                        <p>{post.date.slice(0, 10)}</p>
                     </div> <br>
                     
-                    <span>#javascript #web #docker #nodejs</span>
+                    <span>{post.tags}</span>
 
                 </div>
+            {/each}
+            
+                
             
             </div>
 
