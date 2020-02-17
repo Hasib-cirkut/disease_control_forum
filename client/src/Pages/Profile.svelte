@@ -58,6 +58,7 @@ if(localStorage.length === 0){
         box-shadow: 5px 5px 0px #EB00FF;
         height: 45vh;
         margin-top: 5vh;
+        margin-bottom: 40px;
     }
 
     img{
@@ -131,6 +132,85 @@ if(localStorage.length === 0){
         margin-top: 13vh;
     }
 
+    .middle-block{
+        display: grid;
+        grid-template-columns: 1fr 1.5fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "profile-card profile-card profile-card"
+        "userInterest userPosts adds"
+    }
+
+    .profile-card{
+        grid-area: profile-card
+    }
+
+    .userInterest{
+        grid-area: userInterest;
+    }
+
+    .userPosts{
+        grid-area: userPosts;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post{
+        background: #FFFFFF;
+        border: 3px solid #000000;
+        box-sizing: border-box;
+        box-shadow: -3px 4px 0px rgba(0, 56, 255, 0.74);
+
+        height: 180px;
+        margin-bottom: 30px;
+    }
+
+    .adds{
+        grid-area: adds
+    }
+
+    .post > *{
+        margin-left: 30px;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: normal;
+    }
+
+    .post > h3{
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 34px;
+        line-height: 41px;
+
+        color: #000000;
+    }
+
+    #usernameANDdate{
+        margin-bottom: 2vh;
+    }
+
+    #usernameANDdate > *{
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: normal; 
+    }
+
+    #usernameANDdate > h4{
+        position: absolute;
+        width: 88px;
+        color: #F9003C;
+    }
+
+    #usernameANDdate > p{
+        margin-left: 90px;
+        color: #12B8AE;
+    }
+
+    #usernameANDdate{
+        display: inline-block;
+    }
+
 
 </style>
 
@@ -162,6 +242,32 @@ if(localStorage.length === 0){
                     <span id="joinInfo">20 December, 2019</span>
                 
                 </div>
+            </div>
+
+            <div class="userInterest">
+            
+            </div>
+
+            <div class="userPosts">
+
+                <div class="post">
+
+                    <h3>This is a long title</h3>
+                    <div id="usernameANDdate">
+                        <h4>@hasib</h4>
+                        <p>Feb 17, 2020</p>
+                    </div> <br>
+                    
+                    <span>#javascript #web #docker #nodejs</span>
+
+                </div>
+            
+            </div>
+
+            
+
+            <div class="adds">
+            
             </div>
         </div>
 
