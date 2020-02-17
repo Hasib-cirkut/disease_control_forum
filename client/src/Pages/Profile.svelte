@@ -5,8 +5,11 @@ import Login from '../Pages/Login.svelte'
 
 import {onMount} from 'svelte'
 
+let name='', bio='';
+
 let userloggedin
 let viewData = []
+let userData = []
 
 if(localStorage.length === 0){
     userloggedin = false;
@@ -18,6 +21,14 @@ onMount(async()=>{
     let reData = await fetch(`http://localhost:3000/posts/byuser/${localStorage.getItem('user')}`)
 
     viewData = await reData.json()
+
+    let res = await fetch(`http://localhost:3000/users/byuser/${localStorage.getItem('user')}`)
+
+    userData = await res.json()
+
+    name = userData[0].name
+    bio  = userData[0].bio
+    
 })
 
 </script>
@@ -235,9 +246,9 @@ onMount(async()=>{
             <div class="profile-card">
                 <img src="avatar.jpg" alt="Avatar">
                 <div class="profile-info">
-                    <h4 id="username">Lorem Ipsum</h4>
+                    <h4 id="username">{name}</h4>
                     <button id="follow">Follow</button>
-                    <p id="bio">Passionate about programming, photography and gaming. Author of 'The complete guide to modern JavaScript'</p>
+                    <p id="bio">{bio}</p>
                 </div>
 
                 <div class="additional-info">

@@ -13,6 +13,15 @@ router.get('/', async (req, res)=>{
     }
 })
 
+router.get('/byuser/:username', async (req, res)=>{
+    try{
+        let data = await UserModel.find({username: req.params.username})
+        res.json(data)
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
 router.post('/addUser', async (req, res)=>{
 
         let {name, username, email, password} = req.body
