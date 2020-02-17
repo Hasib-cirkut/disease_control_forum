@@ -52,9 +52,6 @@ router.post('/login', async (req, res)=>{
     let username = req.body.username;
     let password = req.body.password;
 
-    console.log('here');
-    
-
     let receivedData = await UserModel.find({username})
 
 
@@ -64,11 +61,10 @@ router.post('/login', async (req, res)=>{
         if(receivedData[0].password !== password){
             res.json({message: 'passworddoesnotmatch'})
         }else{
+            res.cookie('username', 'john doe', { maxAge: 900000, httpOnly: true });
             res.json({message: 'userfound'})
         }
     }
-    
-    res.end()
 })
 
 

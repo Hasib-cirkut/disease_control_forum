@@ -25,42 +25,101 @@ if(localStorage.length === 0){
     }
 
     .body{
-        background: rgb(240, 240, 240);
+        background: #F9FCFF;
         height: 100vh;
     }
 
-    .intro {
-    grid-area: intro;
+    .middle-block {
+    grid-area: middle-block;
     }
 
-    .profilepic {
-    grid-area: profilepic;
+    .left-block {
+    grid-area: left-block;
+    }
+
+    .right-block {
+    grid-area: right-block;
     }
 
     .body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: auto;
     grid-template-areas: 
-        "intro profilepic"
-        "intro profilepic"
-        "intro profilepic";
+        "left-block middle-block right-block"
+        "left-block middle-block right-block"
+        "left-block middle-block right-block"
     }
 
-    .intro{
-        margin-top: 20vh;
-        margin-left: 10vw;
+    .profile-card{
+        background: #FFFFFF;
+        border: 2.5px solid #F9003C;
+        box-sizing: border-box;
+        box-shadow: 5px 5px 0px #EB00FF;
+        height: 45vh;
+        margin-top: 5vh;
     }
 
-    .profilepic{
-        margin-top: 20vh;
-        margin-left: 15vw;
+    img{
+        border-radius: 50%;
+        width: 70%;
+        margin-left: 3vw;
+        margin-top: 9vh;
+        border: 3px solid #040404;
+}
+
+
+    .profile-card{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: 
+        "img profile-info additional-info"
     }
 
-    h3{
-        margin-top: 6vh;
-        margin-bottom: 2vh;
+    .profile-info{
+        grid-area: profile-info;
+        margin-top: -2vh;
     }
+
+    img{
+        grid-area: img;
+    }
+
+    .additional-info{
+        grid-area: additional-info;
+
+    }
+
+    #username{
+        margin-top: 13vh;
+        font-size: -webkit-xxx-large;
+        font-family: "Monserrat";
+    }
+
+    #follow{
+        margin-left: 4.5vw;
+        margin-top: 4vh;
+        padding: 11px 22px;
+        border-radius: 3px;
+        cursor: pointer;
+        color: violet;
+        border: none;
+        background-color: #151556;
+}
+
+    #follow:hover{
+        background-color: #4ba05d;
+        color: #ffffff;
+}
+
+    #bio{
+        margin-top: 4vh;
+        width: 22vw;
+    }
+
+
+
 
 </style>
 
@@ -69,18 +128,31 @@ if(localStorage.length === 0){
 
 <div class="body">
 
-        <div class="intro">
-            <p style="font-size: x-large">Hello</p>
+        <div class="left-block"></div>
 
-            <h3 style="font-weight: 100">My name is Bill Gates</h3>
+        <div class="middle-block">
+            <div class="profile-card">
+                <img src="avatar.jpg" alt="Avatar">
+                <div class="profile-info">
+                    <h4 id="username">Lorem Ipsum</h4>
+                    <button id="follow">Follow</button>
+                    <p id="bio">Passionate about programming, photography and gaming. Author of 'The complete guide to modern JavaScript'</p>
+                </div>
 
-            <h3 style="font-weight: 100">I am an Entrepreneur</h3>
+                <div class="additional-info">
 
-            <h3 style="font-weight: 50">Here are all the posts I’ve made since I joined the community</h3>
+                    <h4>Work</h4>
+                    <h4>Location</h4>
+                    <h4>Joined</h4>
+                
+                </div>
+            </div>
         </div>
 
-        <div class = "profilepic">
-            <img src="dummyMale.png" alt="dummyMale" width="210" height="200">
+        <div class="right-block">
+
+            
+        
         </div>
 </div>
 

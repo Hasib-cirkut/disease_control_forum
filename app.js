@@ -4,7 +4,8 @@ const cors = require('cors')
 app.use(cors())
 
 const mongoose = require('mongoose')
-
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
 
 const postRoute = require('./Routes/posts')
 const userRoute = require('./Routes/users')
@@ -17,7 +18,6 @@ app.use('/users', userRoute)
 app.use(express.urlencoded({
     extended: false
 }))
-
 
 
 //conncecing to db
