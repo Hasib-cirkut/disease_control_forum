@@ -1,13 +1,14 @@
 
 <script>
 import Navbar from '../Components/Navbar.svelte'
+import { Link } from "svelte-routing";
 import Login from '../Pages/Login.svelte'
 
 import {onMount} from 'svelte'
 
 import readableDate from '../Js/readableDate'
 
-let name,username, bio, joined, location, work = ''
+let name,username, bio, joined, location, work= ''
 
 let userloggedin
 let viewData = []
@@ -29,7 +30,6 @@ onMount(async()=>{
     userData = await res.json()
 
     
-
     name = userData[0].name
     username = userData[0].username
     joined = readableDate(userData[0].joined)
@@ -234,13 +234,14 @@ onMount(async()=>{
     }
 
     #usernameANDdate > p{
-        margin-left: 90px;
+        margin-left: 9vw;
         color: #12B8AE;
     }
 
     #usernameANDdate{
         display: inline-block;
     }
+
 
 
 </style>
@@ -282,6 +283,7 @@ onMount(async()=>{
             <div class="userPosts">
 
             {#each viewData as post}
+            <Link to={`/posts/${post._id}`}>
                 <div class="post" name={post._id}>
 
                     <h3>{post.title}</h3>
@@ -293,6 +295,7 @@ onMount(async()=>{
                     <span>{post.tags}</span>
 
                 </div>
+            </Link>
             {/each}
             
                 

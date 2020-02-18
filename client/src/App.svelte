@@ -23,7 +23,9 @@
 		<Route path="/about" exact component={About} />
 		<Route path="/signup" exact component={Signup} />
 		<Route path="/profile" exact component={Profile} />
-		<Route path="/post" exact component={Post} />
+		<Route path="/posts/:id" exact let:params>
+			<Post id={params.id} />
+		</Route>
 		<Route path="/addpost" exact component={AddPost} />
 
 		<Route component={NotFound} />

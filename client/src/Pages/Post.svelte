@@ -1,17 +1,26 @@
 <script>
+    export let id;
+
     import Navbar from '../Components/Navbar.svelte'
     import {onMount} from 'svelte'
+
+    
+
+    console.log(id);
+    
 
     let loved = false;
     let data;
     let title = '', author='', body=''
 
     onMount(async ()=>{
-        console.log('mounted');
 
-        let reData = await fetch('http://localhost:3000/posts/5e479f1a7bae9221a4fc4b94')
+        let reData = await fetch(`http://localhost:3000/posts/${id}`)
         
         reData = await reData.json()
+
+        console.log(reData);
+        
 
         title = reData[0].title
         author = reData[0].author
