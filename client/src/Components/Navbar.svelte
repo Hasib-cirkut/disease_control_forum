@@ -84,6 +84,7 @@ button:hover{
         {:else}
         <a class="cta" href="/"><button on:click={()=>{
             localStorage.removeItem('user')
+            localStorage.removeItem('userdata')
         }}>Logout</button></a>
         {/if}
     </ul>
