@@ -24,9 +24,12 @@
 
 		receivedData = await receivedData.json()
 
+
 		if(receivedData.message === 'userfound'){
 			userfound = true
+
 			localStorage.setItem('user', username)
+			localStorage.setItem('userdata', JSON.stringify(receivedData.data))
 		}
 		
 	}

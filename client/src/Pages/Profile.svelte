@@ -25,17 +25,15 @@ onMount(async()=>{
 
     viewData = await reData.json()
 
-    let res = await fetch(`http://localhost:3000/users/byuser/${localStorage.getItem('user')}`)
 
-    userData = await res.json()
+    let localUserData = JSON.parse(localStorage.userdata)
 
-    
-    name = userData[0].name
-    username = userData[0].username
-    joined = readableDate(userData[0].joined)
-    location = userData[0].location
-    work = userData[0].work
-    bio = userData[0].bio
+    name = localUserData.name
+    username = localUserData.username
+    joined = readableDate(localUserData.joined)
+    location = localUserData.location
+    work = localUserData.work
+    bio = localUserData.bio
 
     
     

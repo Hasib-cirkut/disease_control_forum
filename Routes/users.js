@@ -22,6 +22,18 @@ router.get('/byuser/:username', async (req, res)=>{
     }
 })
 
+router.get('/bypost/:username', async (req, res)=>{
+    try{
+        let data = await UserModel.find({username: req.params.username})
+        
+        data[0].password = ''
+        
+        res.json(data)
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
 router.post('/addUser', async (req, res)=>{
 
         let {name, username, email, password} = req.body
@@ -63,6 +75,7 @@ router.post('/login', async (req, res)=>{
 
     let receivedData = await UserModel.find({username})
 
+    console.log(receivedData);
 
     if(receivedData.length === 0){
         res.json({message: 'nouserfound'})
@@ -70,8 +83,12 @@ router.post('/login', async (req, res)=>{
         if(receivedData[0].password !== password){
             res.json({message: 'passworddoesnotmatch'})
         }else{
-            res.cookie('username', 'john doe', { maxAge: 900000, httpOnly: true });
-            res.json({message: 'userfound'})
+
+            let tempUserData = {name, username, work, location, joined, bio, profession, email} = receivedData[0]
+    
+
+            res.json(
+                {message: 'userfound', data: tempUserData})
         }
     }
 })

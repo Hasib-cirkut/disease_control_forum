@@ -12,6 +12,7 @@
     let loved = false;
     let data;
     let title = '', author='', body=''
+    let name,username, bio, joined, location, work= ''
 
     onMount(async ()=>{
 
@@ -19,12 +20,18 @@
         
         reData = await reData.json()
 
-        console.log(reData);
-        
+        let authorData = await fetch(`http://localhost:3000/users/bypost/${reData[0].author}`)
+
+        authorData = await authorData.json()
 
         title = reData[0].title
         author = reData[0].author
         body = reData[0].body
+
+        name = authorData[0].name
+        bio = authorData[0].bio
+        work = authorData[0].work
+        location = authorData[0].location
 
     })
 </script>
@@ -196,14 +203,16 @@
 
     <div class="right-bar">
         <div id="userIntro">
-            <h3>Hasibul Huda</h3>
+            <h3>{name}</h3>
             <a href='/profile'><h4>@{author}</h4></a>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>{bio}</p>
             <button>Follow</button><br>
 
-            <span>work</span><br>
+            <span>Work</span><br>
+            <h6>{work}</h6>
             <span>location</span>
+            <h6>{location}</h6>
         </div>
     </div>
 
