@@ -137,7 +137,7 @@ onMount(async()=>{
         font-family: "Monserrat";
     }
 
-    #follow{
+    #follow, #editprofile{
         margin-left: 4.5vw;
         margin-top: 4vh;
         padding: 11px 22px;
@@ -270,12 +270,12 @@ onMount(async()=>{
                     {#if  followButton}
                         <button id="follow">Follow</button>
                     {:else}
-                        <button id="follow">Edit Profile</button>
+                        <Link to={"/editprofile"}><button id="editprofile">Edit Profile</button></Link>
                     {/if}
 
 
                     {#if work === undefined}
-                        <p id="bio"><Link>Update Bio+</Link></p>
+                        <p id="bio"><Link to={"/editprofile"}>Update Bio+</Link></p>
                     {:else}
                         <p id="bio">{bio}</p>
                     {/if}
@@ -285,7 +285,7 @@ onMount(async()=>{
 
                     <h4 id="work">Work</h4>
                     {#if work === undefined}
-                        <span id="workInfo"><Link>Update Work+</Link></span>
+                        <span id="workInfo"><Link to={"/editprofile"}>Update Work+</Link></span>
                     {:else}
                         <span id="workInfo">{work}</span>
                     {/if}
@@ -293,7 +293,7 @@ onMount(async()=>{
 
                     <h4 id="location">Location</h4>
                     {#if location === undefined}
-                        <span id="locationInfo"><Link>Update Location+</Link></span>
+                        <span id="locationInfo"><Link to={"/editprofile"}>Update Location+</Link></span>
                     {:else}
                         <span id="locationInfo">{location}</span>
                     {/if}
