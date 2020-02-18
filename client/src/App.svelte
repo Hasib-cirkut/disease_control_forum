@@ -23,7 +23,7 @@
 		<Route path="/about" exact component={About} />
 		<Route path="/signup" exact component={Signup} />
 		<Route path="/profile/:user" exact let:params>
-			<Profile username={params.user} />
+			<Profile currentUsername={params.user} />
 		</Route>
 		<Route path="/posts/:id" exact let:params>
 			<Post id={params.id} />

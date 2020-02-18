@@ -1,6 +1,6 @@
 
 <script>
-export let username;
+export let currentUsername;
 
 import Navbar from '../Components/Navbar.svelte'
 import { Link } from "svelte-routing";
@@ -10,11 +10,12 @@ import {onMount} from 'svelte'
 
 import readableDate from '../Js/readableDate'
 
-let name, bio, joined, location, work= ''
+let name, bio, joined, location, work, username= ''
 
 let userloggedin
 let viewData = []
 let userData = []
+let followButton;
 
 if(localStorage.length === 0){
     userloggedin = false;
@@ -23,12 +24,9 @@ if(localStorage.length === 0){
 }
 
 onMount(async()=>{
-    let reData = await fetch(`http://localhost:3000/posts/byuser/${username}`)
+    let reData = await fetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
 
     viewData = await reData.json()
-
-    console.log(viewData);
-    
 
 
     let localUserData = JSON.parse(localStorage.userdata)
@@ -39,7 +37,14 @@ onMount(async()=>{
     location = localUserData.location
     work = localUserData.work
     bio = localUserData.bio
+    
 
+    if(currentUsername === username){
+        followButton = false
+    }else{
+        followButton = true;
+    }
+    
     
     
 })
@@ -255,21 +260,19 @@ onMount(async()=>{
 <div class="body">
 
         <div class="left-block">
-            
-
-            
-            
-        
         </div>
-
-        
 
         <div class="middle-block">
             <div class="profile-card">
                 <img src="/avatar.jpg" alt="avatar">
                 <div class="profile-info">
                     <h4 id="username">{name}</h4>
-                    <button id="follow">Follow</button>
+                    {#if  followButton}
+                        <button id="follow">Follow</button>
+                    {:else}
+                        <button id="follow">Edit Profile</button>
+                    {/if}
+
 
                     {#if work === undefined}
                         <p id="bio"><Link>Update Bio+</Link></p>
