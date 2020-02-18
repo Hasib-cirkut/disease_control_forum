@@ -5,10 +5,12 @@ var userSchema = new Schema({
     name: String,
     username: String,
     email: String,
-    age: String,
-    profession: String,
     password: String,
-    bio: String
+    bio: String,
+    work: String,
+    profession: String,
+    joined: { type: Date, default: Date.now },
+    location: String
 });
 
 module.exports = mongoose.model('users', userSchema);

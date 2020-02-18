@@ -5,7 +5,9 @@ import Login from '../Pages/Login.svelte'
 
 import {onMount} from 'svelte'
 
-let name='', bio='';
+import readableDate from '../Js/readableDate'
+
+let name,username, bio, joined, location, work = ''
 
 let userloggedin
 let viewData = []
@@ -26,8 +28,16 @@ onMount(async()=>{
 
     userData = await res.json()
 
+    
+
     name = userData[0].name
-    bio  = userData[0].bio
+    username = userData[0].username
+    joined = readableDate(userData[0].joined)
+    location = userData[0].location
+    work = userData[0].work
+    bio = userData[0].bio
+
+    
     
 })
 
@@ -254,13 +264,13 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    <span id="workInfo">XYZ company</span>
+                    <span id="workInfo">{work}</span>
 
                     <h4 id="location">Location</h4>
-                    <span id="locationInfo">Brooklyn, NY</span>
+                    <span id="locationInfo">{location}</span>
 
                     <h4 id="join">Joined</h4>
-                    <span id="joinInfo">20 December, 2019</span>
+                    <span id="joinInfo">{joined}</span>
                 
                 </div>
             </div>
