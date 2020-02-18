@@ -4,10 +4,6 @@
     import Navbar from '../Components/Navbar.svelte'
     import {onMount} from 'svelte'
 
-    
-
-    console.log(id);
-    
 
     let loved = false;
     let data;

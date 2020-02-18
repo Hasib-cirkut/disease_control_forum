@@ -1,5 +1,7 @@
 
 <script>
+export let username;
+
 import Navbar from '../Components/Navbar.svelte'
 import { Link } from "svelte-routing";
 import Login from '../Pages/Login.svelte'
@@ -8,7 +10,7 @@ import {onMount} from 'svelte'
 
 import readableDate from '../Js/readableDate'
 
-let name,username, bio, joined, location, work= ''
+let name, bio, joined, location, work= ''
 
 let userloggedin
 let viewData = []
@@ -21,9 +23,12 @@ if(localStorage.length === 0){
 }
 
 onMount(async()=>{
-    let reData = await fetch(`http://localhost:3000/posts/byuser/${localStorage.getItem('user')}`)
+    let reData = await fetch(`http://localhost:3000/posts/byuser/${username}`)
 
     viewData = await reData.json()
+
+    console.log(viewData);
+    
 
 
     let localUserData = JSON.parse(localStorage.userdata)
@@ -249,24 +254,46 @@ onMount(async()=>{
 
 <div class="body">
 
-        <div class="left-block"></div>
+        <div class="left-block">
+            
+
+            
+            
+        
+        </div>
+
+        
 
         <div class="middle-block">
             <div class="profile-card">
-                <img src="avatar.jpg" alt="Avatar">
+                <img src="/avatar.jpg" alt="avatar">
                 <div class="profile-info">
                     <h4 id="username">{name}</h4>
                     <button id="follow">Follow</button>
-                    <p id="bio">{bio}</p>
+
+                    {#if work === undefined}
+                        <p id="bio"><Link>Update Bio+</Link></p>
+                    {:else}
+                        <p id="bio">{bio}</p>
+                    {/if}
                 </div>
 
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    <span id="workInfo">{work}</span>
+                    {#if work === undefined}
+                        <span id="workInfo"><Link>Update Work+</Link></span>
+                    {:else}
+                        <span id="workInfo">{work}</span>
+                    {/if}
+                    
 
                     <h4 id="location">Location</h4>
-                    <span id="locationInfo">{location}</span>
+                    {#if location === undefined}
+                        <span id="locationInfo"><Link>Update Location+</Link></span>
+                    {:else}
+                        <span id="locationInfo">{location}</span>
+                    {/if}
 
                     <h4 id="join">Joined</h4>
                     <span id="joinInfo">{joined}</span>

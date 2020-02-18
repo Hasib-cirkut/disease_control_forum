@@ -1,6 +1,7 @@
 <script>
 
     let userloggedin;
+    let profileurl = `/profile/${localStorage.getItem('user')}`
 
     if(localStorage.length === 0){
         userloggedin = false;
@@ -76,7 +77,7 @@ button:hover{
     <nav style="width: -webkit-fill-available">
     <ul class="navLinks">
         <li><a href="/">Home</a></li>
-        <li><a href="/profile">Profile</a></li>
+        <li><a href={profileurl}>Profile</a></li>
         <li><a href="/about">About</a></li>
 
         {#if userloggedin === false}
