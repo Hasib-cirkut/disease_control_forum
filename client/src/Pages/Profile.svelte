@@ -44,9 +44,6 @@ onMount(async()=>{
     }else{
         followButton = true;
     }
-    
-    
-    
 })
 
 </script>

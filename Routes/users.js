@@ -93,5 +93,31 @@ router.post('/login', async (req, res)=>{
     }
 })
 
+router.post('/updateprofile', async (req, res)=>{
+
+    console.log(req.body);
+    
+
+    let {name, username, location, work, bio, email, profession} = req.body;
+    
+    let reData  = await UserModel.update(
+        {username: username},
+        {
+            $set: {
+                name: name,
+                username: username,
+                location: location,
+                work: work,
+                bio: bio,
+                email: email,
+                profession: profession
+            }
+        }
+    )
+
+    res.json(reData)
+    
+})
+
 
 module.exports = router

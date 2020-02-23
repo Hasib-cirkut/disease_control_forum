@@ -3,6 +3,7 @@
     import Navbar from '../Components/Navbar.svelte'
     import {onMount} from 'svelte'
     import readableDate from '../Js/readableDate'
+    import {navigate} from 'svelte-routing'
 
     let name, bio, joined, email, location, work, username, profession= ''
 
@@ -21,6 +22,45 @@
         profession = localUserData.profession
 
     })
+
+    const editProfile = async event =>{
+        event.preventDefault()
+
+        let data = {name, username, location, work, bio, email, profession}
+
+        data = JSON.stringify(data)
+
+        let reData = await fetch('http://localhost:3000/users/updateprofile', {
+			method: "POST",
+			
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: data
+        })
+
+        reData = await reData.json()
+
+        updateLocalStorage()
+
+        navigate(`/profile/${username}`)
+        
+    }
+
+    function updateLocalStorage(){
+        let userdata = JSON.parse(localStorage.userdata)
+
+        userdata.name = name;
+        userdata.location = location;
+        userdata.work = work;
+        userdata.bio = bio;
+        userdata.email = email;
+        userdata.profession = profession;
+
+        userdata = JSON.stringify(userdata)
+
+        localStorage.setItem('userdata', userdata);
+    }
 
 
     
@@ -74,7 +114,7 @@
 
     <div class="rightbar">
 
-        <form action="">
+        <form on:submit={editProfile}>
 
             <div>
                 <label>Full Name</label>
