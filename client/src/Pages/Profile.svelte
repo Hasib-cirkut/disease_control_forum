@@ -134,8 +134,8 @@ onMount(async()=>{
         font-family: "Monserrat";
     }
 
-    #follow, #editprofile{
-        margin-left: 4.5vw;
+    #follow, #editprofile, #addpost-btn{
+        
         margin-top: 4vh;
         padding: 11px 22px;
         border-radius: 3px;
@@ -144,6 +144,10 @@ onMount(async()=>{
         border: none;
         background-color: #151556;
 }
+
+    #addpost-btn{
+        margin-left: 0vw;
+    }
 
     #follow:hover{
         background-color: #4ba05d;
@@ -269,6 +273,8 @@ onMount(async()=>{
                     {:else}
                         <Link to={"/editprofile"}><button id="editprofile">Edit Profile</button></Link>
                     {/if}
+
+                    <Link to={'/addpost'}><button id="addpost-btn">Post</button></Link>
 
 
                     {#if work === undefined}
