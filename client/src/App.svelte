@@ -3,6 +3,7 @@
 	import Login from './Pages/Login.svelte'
 	import Signup from './Pages/Signup.svelte'
 	import Home from './Pages/Home.svelte'
+	import Index from './Pages/Index.svelte'
 	import About from './Pages/About.svelte'
 	import Profile from './Pages/Profile.svelte'
 	import Post from './Pages/Post.svelte'
@@ -23,6 +24,7 @@
 		<Route path="/login" exact component={Login} />
 		<Route path="/about" exact component={About} />
 		<Route path="/signup" exact component={Signup} />
+		<Route path="/index" exact component={Index} />
 
 		<Route path="/profile/:user" exact let:params>
 			<Profile currentUsername={params.user} />
