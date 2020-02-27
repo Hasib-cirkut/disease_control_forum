@@ -14,10 +14,19 @@ const month = {
 }
 
 export default function(date){
-    let monthS = date.slice(5, 7)
+
+    if (date === undefined){
+        return 'date is undefined'
+    }else{  
 
 
-    let tempMonth = month[monthS]
+        let monthS = date.slice(5, 7)
 
-    return date.slice(8, 10) + ' ' + tempMonth + ', ' + date.slice(0, 4)
+
+        let tempMonth = month[monthS]
+
+        return date.slice(8, 10) + ' ' + tempMonth + ', ' + date.slice(0, 4)
+
+    }
+
 }
