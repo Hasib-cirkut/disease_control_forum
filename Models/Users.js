@@ -9,8 +9,9 @@ var userSchema = new Schema({
     bio: String,
     work: String,
     profession: String,
-    joined: { type: Date, default: Date.now },
-    location: String
+    joined: { type: Date, default: Date.now},
+    location: String,
+    type: String
 });
 
 module.exports = mongoose.model('users', userSchema);

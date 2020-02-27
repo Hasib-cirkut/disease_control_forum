@@ -1,12 +1,14 @@
 <script>
     import Navbar from '../Components/Navbar.svelte'
-    import {Link} from 'svelte-routing'
+    import {Link, navigate} from 'svelte-routing'
     import readableDate from '../Js/readableDate.js'
 
     import {onMount} from 'svelte'
 
     let viewData = []
     let date;
+
+    let userType;
 
     onMount(async()=>{
     let reData = await fetch(`http://localhost:3000/posts/`)
@@ -18,8 +20,30 @@
         viewData[i].date = readableDate(viewData[i].date)
     }
 
-    //console.log(viewData)
+    let userData = await localStorage.getItem('userdata')
+    userData = await JSON.parse(userData)
+
+    userType = userData.type
+
 })
+
+    const handleDelete = async event =>{
+
+        event.preventDefault()
+
+        let reData = await fetch(`http://localhost:3000/posts/delete/${event.target.name}`,  {
+            method: 'DELETE', // Method itself
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+            },
+ 
+        })
+        reData = await reData.json()
+
+        if(reData.message === 'deleted'){
+            window.location.reload()
+        }
+    }
 </script>
 
 <style>
@@ -102,7 +126,10 @@
         box-shadow: -3px 4px 0px rgba(0, 56, 255, 0.74);
 
         min-height: 15vh;
-        margin-bottom: 5vh;
+        margin-bottom: 2vh;
+    }
+    #delete-btn{
+        border-radius: 3px;
     }
 </style>
 
@@ -130,9 +157,11 @@
                     </div> <br>
                     
                     <span>{post.tags}</span>
-
                 </div>
             </Link>
+            {#if userType === 'root' || userType === 'admin'}
+                <button id="delete-btn" name={post._id} on:click={handleDelete}>delete</button>
+            {/if}
     {/each}
 
     

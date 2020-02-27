@@ -57,16 +57,15 @@ router.post('/addpost', async (req, res)=>{
     
 })
 
-router.delete('/:postId', async (req, res)=>{
+router.delete('/delete/:postId', async (req, res)=>{
     try{
         let deletedPost = await PostModel.remove({
             _id: req.params.postId
         })
-        res.json(deletedPost)
+        res.json({message: 'deleted'})
     }catch(err){
         res.json({message: err})
     }
-    
 })
 
 

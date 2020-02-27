@@ -44,7 +44,8 @@ router.post('/addUser', async (req, res)=>{
             email,
             age: '',
             profession: '',
-            password
+            password,
+            type: "general"
         })
 
         let receivedData = await UserModel.find({username})
@@ -61,10 +62,6 @@ router.post('/addUser', async (req, res)=>{
         }else{
             res.json({message: 'usernametaken'})
         }
-
-    
-
-    
 })
 
 
