@@ -2,6 +2,7 @@
     import Navbar from '../Components/Navbar.svelte'
     import {Link, navigate} from 'svelte-routing'
     import readableDate from '../Js/readableDate.js'
+    import {Modal ,ModalBody, ModalFooter, ModalHeader, Button} from 'sveltestrap'
 
     import {onMount} from 'svelte'
 
@@ -44,7 +45,104 @@
             window.location.reload()
         }
     }
+
+    const handleReport = async (event) =>{
+        event.preventDefault()
+
+        let data = {
+            post_id: event.target.name,
+            description
+        }
+
+        data = await JSON.stringify(data)
+
+        let reData  = await fetch('http://localhost:3000/reports/submitReport', {
+            method: 'POST',
+            headers: {
+            'Content-type': 'application/json' 
+            },
+            body: data
+        })
+
+        reData = await reData.json()
+
+        console.log(reData)
+    }
+
+    ///modal
+
+    let open = false;
+    let description = ''
+
+    const toggleModal = () => open = !open
 </script>
+
+
+
+<Navbar />
+
+<div class="index">
+
+    <div class="leftleft" />
+
+    <div class="left">
+    
+    </div>
+
+    <div class="middle">
+
+    
+    {#each viewData as post}
+        
+                <div class="post">
+                
+                    <h3>{post.title}</h3>
+                    <Link to={`/posts/${post._id}`}>
+                        <p style="margin-left: 30px">Read post...</p>
+                    </Link>
+                    <div id="usernameANDdate">
+                        <h4>@{post.author}</h4>
+                        <p>{post.date}</p>
+                    </div> <br>
+                    
+                    <span>{post.tags}</span>
+
+                    <button id="report-btn" on:click={toggleModal}>report</button>
+                </div>
+            
+            {#if userType === 'root' || userType === 'admin'}
+                <button id="delete-btn" name={post._id} on:click={handleDelete}>delete</button>
+            {/if}
+
+            <Modal isOpen={open} {toggleModal}>
+
+                <ModalHeader {toggleModal}>Report</ModalHeader>
+                <ModalBody>
+                    <textarea bind:value={description}></textarea>
+                </ModalBody>
+                <ModalFooter>
+                <Button color="primary" on:click={toggleModal} name={post._id} on:click={handleReport}>
+                    Submit
+                </Button>
+
+                <Button color="secondary" on:click={toggleModal}>
+                    Cancel
+                </Button>
+                </ModalFooter>
+            
+            </Modal>
+    {/each}
+
+    
+    </div>
+
+    <div class="right">
+    
+    </div>
+
+    <div class="rightright" />
+    
+</div>
 
 <style>
     .leftleft{
@@ -77,7 +175,7 @@
         min-height: 100vh;
     }
 
-    .post > *{
+    .post > * {
         margin-left: 30px;
         font-family: "Montserrat";
         font-style: normal;
@@ -92,6 +190,7 @@
 
         color: #000000;
     }
+    
 
     #usernameANDdate{
         margin-bottom: 2vh;
@@ -128,49 +227,15 @@
         min-height: 15vh;
         margin-bottom: 2vh;
     }
-    #delete-btn{
+    #delete-btn, #report-btn{
         border-radius: 3px;
     }
+
+    #report-btn{
+
+        background-color: rgb(255, 56, 102);
+
+        color: rgb(255, 255, 255);
+
+    }
 </style>
-
-<Navbar />
-
-<div class="index">
-
-    <div class="leftleft" />
-
-    <div class="left">
-    
-    </div>
-
-    <div class="middle">
-
-    
-    {#each viewData as post}
-        <Link to={`/posts/${post._id}`}>
-                <div class="post" name={post._id}>
-
-                    <h3>{post.title}</h3>
-                    <div id="usernameANDdate">
-                        <h4>@{post.author}</h4>
-                        <p>{post.date}</p>
-                    </div> <br>
-                    
-                    <span>{post.tags}</span>
-                </div>
-            </Link>
-            {#if userType === 'root' || userType === 'admin'}
-                <button id="delete-btn" name={post._id} on:click={handleDelete}>delete</button>
-            {/if}
-    {/each}
-
-    
-    </div>
-
-    <div class="right">
-    
-    </div>
-
-    <div class="rightright" />
-    
-</div>
