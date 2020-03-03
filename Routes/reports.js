@@ -2,6 +2,18 @@ const express = require('express')
 const router = express.Router()
 const ReportModel = require('../Models/Report.js')
 
+router.get('/allReport', async (req, res)=>{
+    let savedPost = await ReportModel.find({})
+
+    if(savedPost.length === 0){
+        res.json({
+            message: 'noreportfound'
+        })
+    }else{
+        res.json(savedPost)
+    }
+})
+
 router.post('/submitReport', async (req, res)=>{
     let {post_id, description} = req.body;
 

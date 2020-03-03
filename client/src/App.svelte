@@ -9,6 +9,7 @@
 	import Post from './Pages/Post.svelte'
 	import AddPost from './Pages/AddPost.svelte'
 	import EditProfile from './Pages/EditProfile.svelte'
+	import Dashboard from './Pages/Dashboard.svelte'
 	import NotFound from './Pages/NotFound.svelte'
 
 	
@@ -25,6 +26,7 @@
 		<Route path="/about" exact component={About} />
 		<Route path="/signup" exact component={Signup} />
 		<Route path="/index" exact component={Index} />
+		<Route path="/dashboard" exact component={Dashboard} />
 
 		<Route path="/profile/:user" exact let:params>
 			<Profile currentUsername={params.user} />
