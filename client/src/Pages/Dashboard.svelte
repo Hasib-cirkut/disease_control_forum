@@ -8,9 +8,14 @@ let reportData = $reportStore
 <div class="container">
 
         <div class="left">
-        <p>Reports</p>
 
-        <p>Adminship</p>
+            <div class="left-bar">
+            
+                <button>Reports</button>
+                <button>Adminship</button>
+            
+            </div>
+
         </div>
 
         <div class="right">
@@ -105,19 +110,15 @@ let reportData = $reportStore
 </div>
 
 <style>
+    .left, .right{
+        margin-top: 10vh;
+    }
 
     .left{
         grid-area: left;
         display: flex;
         flex-direction: column;
-
-        height: 100%;
-        width: 160px;
-        position: fixed;
-        z-index: 1;
-        background-color: #111;
-        overflow-x: hidden;
-        padding-top: 20px;
+        
     }
 
     .right{
@@ -133,6 +134,18 @@ let reportData = $reportStore
         grid-template-columns: 2fr 5fr;
         grid-template-areas:
         "left right" 
+    }
+
+    .left-bar{
+        display: flex;
+        flex-direction: column;
+        height: 60%;
+        width: 220px;
+        position: fixed;
+        z-index: 1;
+        background-color: #bdbdbd;
+        overflow-x: hidden;
+        padding-top: 20px;
     }
 
 </style>
