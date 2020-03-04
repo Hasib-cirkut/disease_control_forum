@@ -65,8 +65,6 @@
         })
 
         reData = await reData.json()
-
-        console.log(reData)
     }
 
     ///modal

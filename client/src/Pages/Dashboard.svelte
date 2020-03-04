@@ -2,7 +2,29 @@
 import Navbar from '../Components/Navbar.svelte'
 import {reportStore} from '../Stores/report.js'
 
+import {Button, Modal, ModalBody, ModalHeader} from 'sveltestrap'
+
+let open = false;
+
+const toggle = () => open = !open
+
 let reportData = $reportStore
+
+const handleModalDelete = e =>{
+    e.preventDefault()
+
+    
+}
+
+const handleModalNVM = e =>{
+    e.preventDefault()
+
+    console.log('here in nvm')
+}
+
+const handleModalWarn = e =>{
+    e.preventDefault()
+}
 </script>
 
 <div class="container">
@@ -29,6 +51,8 @@ let reportData = $reportStore
                 <h5>{post_id}</h5>
                 <h3>{description}</h3>
 
+                <Button outline size="sm" color="danger" style="width: fit-content" on:click={toggle}>Action</Button>
+
             {/each}
 
 
@@ -36,6 +60,27 @@ let reportData = $reportStore
         {:catch error}
             <p style="color: red">{error.message}</p>
         {/await}
+
+        <Modal isOpen={open} {toggle}>
+            <ModalHeader {toggle}>Action</ModalHeader>
+            <ModalBody>
+            
+            <Button size="sm" color="success" on:click={handleModalNVM}>
+                Never mind
+            </Button>
+
+            <Button size="sm" color="warning" on:click={handleModalWarn}>
+                Warn
+            </Button>
+
+            <Button size="sm" color="danger" on:click={handleModalDelete}>
+                Delete Post
+            </Button>
+
+            </ModalBody>
+        </Modal>
+
+
         </div>
 
 </div>
