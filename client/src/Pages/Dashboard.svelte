@@ -2,7 +2,7 @@
 import Navbar from '../Components/Navbar.svelte'
 import {reportStore} from '../Stores/report.js'
 
-import {Button, Modal, ModalBody, ModalHeader} from 'sveltestrap'
+import {Button, Modal, ModalBody, ButtonGroup,ModalHeader} from 'sveltestrap'
 
 let open = false;
 
@@ -47,12 +47,23 @@ const handleModalWarn = e =>{
         {:then dataList}
             
             {#each dataList as {post_id, description}}
-            
-                <h5>{post_id}</h5>
-                <h3>{description}</h3>
 
-                <Button outline size="sm" color="danger" style="width: fit-content" on:click={toggle}>Action</Button>
+            <div class="card" style="width: 28rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Report</h5>
+                    
+                    <p class="card-text">{description}</p>
+                
+                <div class="col-sm-12" style="padding: 0;">
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="action-btn" on:click={toggle}>Action</button>
 
+                    <a class="btn btn-outline-success btn-sm" href={`/posts/${post_id}`} role="button" style="color:black;">Visit post</a>
+                </div>
+
+                </div>
+            </div>
+        
+                
             {/each}
 
 
@@ -123,5 +134,12 @@ const handleModalWarn = e =>{
         overflow-x: hidden;
         padding-top: 20px;
     }
+
+    #action-btn, #visit-btn{
+        display: inline-block;
+        vertical-align: top;
+        width: fit-content;
+    }
+
 
 </style>
