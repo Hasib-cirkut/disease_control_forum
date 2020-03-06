@@ -34,4 +34,16 @@ router.post('/submitReport', async (req, res)=>{
     }
 })
 
+router.delete('/:id', async (req, res)=>{
+    
+    try{
+        let deletedPost = await ReportModel.remove({
+            _id: req.params.id
+        })
+        res.json({message: 'deleted'})
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
 module.exports = router

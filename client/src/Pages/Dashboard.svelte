@@ -1,14 +1,32 @@
 <script>
 import Navbar from '../Components/Navbar.svelte'
 import {reportStore} from '../Stores/report.js'
+import {onMount} from 'svelte'
+import {navigate} from 'svelte-routing'
 
 import {Button, Modal, ModalBody, ButtonGroup,ModalHeader} from 'sveltestrap'
 
 let open = false;
+let noReport = false;
 
 const toggle = () => open = !open
 
-let reportData = $reportStore
+let reportData = [];
+
+onMount(async()=>{
+
+    
+
+    reportData = await $reportStore;
+
+
+    if(reportData.message === 'noreportfound'){
+        noReport = true;
+    }
+
+
+})
+    
 
 const handleModalDelete = e =>{
     e.preventDefault()
@@ -16,10 +34,21 @@ const handleModalDelete = e =>{
     
 }
 
-const handleModalNVM = e =>{
+const handleModalNVM = async e =>{
     e.preventDefault()
 
-    console.log('here in nvm')
+    let reData = await fetch(`http://localhost:3000/reports/${e.target.name}`, {
+            method: 'DELETE',
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+            },
+ 
+        })
+    reData = await reData.json()
+
+    if(reData.message === 'deleted'){
+        navigate('/dashboard')
+    }
 }
 
 const handleModalWarn = e =>{
@@ -41,57 +70,42 @@ const handleModalWarn = e =>{
         </div>
 
         <div class="right">
-
-        {#await reportData}
-            <p>...waiting</p>
-        {:then dataList}
-            
-            {#each dataList as {post_id, description}}
-
-            <div class="card" style="width: 28rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Report</h5>
-                    
-                    <p class="card-text">{description}</p>
-                
-                <div class="col-sm-12" style="padding: 0;">
-                    <button type="button" class="btn btn-outline-primary btn-sm" id="action-btn" on:click={toggle}>Action</button>
-
-                    <a class="btn btn-outline-success btn-sm" href={`/posts/${post_id}`} role="button" style="color:black;">Visit post</a>
-                </div>
-
-                </div>
-            </div>
         
-                
-            {/each}
-
-
-
-        {:catch error}
-            <p style="color: red">{error.message}</p>
-        {/await}
-
-        <Modal isOpen={open} {toggle}>
-            <ModalHeader {toggle}>Action</ModalHeader>
-            <ModalBody>
+        {#if noReport}
+        <p>No reports. Hurray. Great adminship</p>
             
-            <Button size="sm" color="success" on:click={handleModalNVM}>
-                Never mind
-            </Button>
+        {:else}
+                {#each reportData as {post_id, description, _id}}
 
-            <Button size="sm" color="warning" on:click={handleModalWarn}>
-                Warn
-            </Button>
+                <div class="card" style="width: 28rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Report</h5>
+                        
+                        <p class="card-text">{description}</p>
+                    
+                    <div class="col-sm-12" style="padding: 0;">
+                        <a class="btn btn-outline-success btn-sm" href={`/posts/${post_id}`} role="button" style="color:black; margin-bottom:2vh">Visit post</a>
+                    </div>
 
-            <Button size="sm" color="danger" on:click={handleModalDelete}>
-                Delete Post
-            </Button>
+                    <Button size="sm" color="success" on:click={handleModalNVM} name={`${_id}`}>
+                        Never mind
+                    </Button>
 
-            </ModalBody>
-        </Modal>
+                    <Button size="sm" color="warning" on:click={handleModalWarn} name={`${_id}`}>
+                        Warn
+                    </Button>
 
+                    <Button size="sm" color="danger" on:click={handleModalDelete} name={`${_id}`}>
+                        Delete Post
+                    </Button>
 
+                    </div>
+                </div>
+                    
+                {/each}
+
+        {/if}
+            
         </div>
 
 </div>
