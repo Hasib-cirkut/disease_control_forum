@@ -28,8 +28,23 @@ onMount(async()=>{
 })
     
 
-const handleModalDelete = e =>{
+const handleModalDelete = async e =>{
     e.preventDefault()
+
+    let reData = await fetch(`http://localhost:3000/posts/delete/${event.target.name}`,  {
+            method: 'DELETE', // Method itself
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+            },
+ 
+        })
+        reData = await reData.json()
+
+        if(reData.message === 'deleted'){
+            handleModalNVM()
+            window.location.reload()
+        }
+
 
     
 }
@@ -47,7 +62,7 @@ const handleModalNVM = async e =>{
     reData = await reData.json()
 
     if(reData.message === 'deleted'){
-        navigate('/dashboard')
+        window.location.reload()
     }
 }
 
@@ -95,7 +110,7 @@ const handleModalWarn = e =>{
                         Warn
                     </Button>
 
-                    <Button size="sm" color="danger" on:click={handleModalDelete} name={`${_id}`}>
+                    <Button size="sm" color="danger" on:click={handleModalDelete} name={`${post_id}`}>
                         Delete Post
                     </Button>
 
@@ -148,12 +163,4 @@ const handleModalWarn = e =>{
         overflow-x: hidden;
         padding-top: 20px;
     }
-
-    #action-btn, #visit-btn{
-        display: inline-block;
-        vertical-align: top;
-        width: fit-content;
-    }
-
-
 </style>
