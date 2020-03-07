@@ -2,7 +2,8 @@
     import Navbar from '../Components/Navbar.svelte'
     import {Link, navigate} from 'svelte-routing'
     import readableDate from '../Js/readableDate.js'
-    import {Modal ,ModalBody, ModalFooter, ModalHeader, Button} from 'sveltestrap'
+
+    import {Collapse, Card} from 'sveltestrap'
 
     import {onMount} from 'svelte'
 
@@ -46,33 +47,14 @@
         }
     }
 
-    const handleReport = async (event) =>{
-        event.preventDefault()
+    const handleReport = e =>{
+        let {name} = e.target
 
-        let data = {
-            post_id: event.target.name,
-            description
-        }
-
-        data = await JSON.stringify(data)
-
-        let reData  = await fetch('http://localhost:3000/reports/submitReport', {
-            method: 'POST',
-            headers: {
-            'Content-type': 'application/json' 
-            },
-            body: data
-        })
-
-        reData = await reData.json()
+        navigate(`/report/${name}`)
     }
 
-    ///modal
+    
 
-    let open = false;
-    let description = ''
-
-    const toggleModal = () => open = !open
 </script>
 
 
@@ -105,30 +87,14 @@
                     
                     <span>{post.tags}</span>
 
-                    <button id="report-btn" on:click={toggleModal}>report</button>
+                    <button id="report-btn" name={post._id} on:click={handleReport}>report</button>
                 </div>
             
             {#if userType === 'root' || userType === 'admin'}
                 <button id="delete-btn" name={post._id} on:click={handleDelete}>delete</button>
             {/if}
 
-            <Modal isOpen={open} {toggleModal}>
-
-                <ModalHeader {toggleModal}>Report</ModalHeader>
-                <ModalBody>
-                    <textarea bind:value={description}></textarea>
-                </ModalBody>
-                <ModalFooter>
-                <Button color="primary" on:click={toggleModal} name={post._id} on:click={handleReport}>
-                    Submit
-                </Button>
-
-                <Button color="secondary" on:click={toggleModal}>
-                    Cancel
-                </Button>
-                </ModalFooter>
             
-            </Modal>
     {/each}
 
     

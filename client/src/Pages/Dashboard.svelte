@@ -11,6 +11,7 @@ let noReport = false;
 
 const toggle = () => open = !open
 
+
 let reportData = [];
 
 onMount(async()=>{
