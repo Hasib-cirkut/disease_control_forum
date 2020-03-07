@@ -10,6 +10,7 @@
 	import AddPost from './Pages/AddPost.svelte'
 	import EditProfile from './Pages/EditProfile.svelte'
 	import Dashboard from './Pages/Dashboard.svelte'
+	import Report from './Pages/Report.svelte'
 	import NotFound from './Pages/NotFound.svelte'
 
 	
@@ -38,6 +39,9 @@
 		
 		<Route path="/addpost" exact component={AddPost} />
 		<Route path="/editprofile" exact component={EditProfile} />
+		<Route path="/report/:post_id" exact let:params>
+			<Report post_id = {params.post_id} />
+		</Route>
 
 
 		<Route component={NotFound} />
