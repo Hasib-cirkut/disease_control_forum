@@ -1,18 +1,19 @@
 <script>
   import {
     Button, Card, CardBody, CardFooter, CardHeader,
-    CardImg, CardSubtitle, CardText, CardTitle
+    CardImg, CardSubtitle, CardText, CardTitle, Input
   } from "sveltestrap";
 
-  export let post_id;
+  import {navigate} from 'svelte-routing'
 
-  console.log(post_id)
+  export let post_id;
+  let description = ''
 
   const handleReport = async (event) =>{
         event.preventDefault()
 
         let data = {
-            post_id: event.target.name,
+            post_id,
             description
         }
 
@@ -27,22 +28,25 @@
         })
 
         reData = await reData.json()
+
+        if(reData.message === 'reportsubmitted'){
+            navigate('/index')
+        }
     }
 </script>
 
 
 
-<Card class="mb-3">
+<Card class=".col-sm-1 rounded2 .col-md-6 .offset-md-3">
   <CardHeader>
     <CardTitle>Report</CardTitle>
   </CardHeader>
   <CardBody>
-    <CardSubtitle>Card subtitle</CardSubtitle>
-    <CardText>
-      Some quick example text to build on the card title
-      and make up the bulk of the card's content.
-    </CardText>
-    <Button>Button</Button>
+
+  <Input type="textarea" bind:value={description}/>
+
+    
+    <Button on:click={handleReport}>Submit Report</Button>
   </CardBody>
-  <CardFooter>Footer</CardFooter>
+  <CardFooter>We will inform the author.</CardFooter>
 </Card>
