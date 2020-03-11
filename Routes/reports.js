@@ -46,4 +46,17 @@ router.delete('/:id', async (req, res)=>{
     }
 })
 
+router.delete('/deleteMany/:post_id', async (req, res)=>{
+    
+    try{
+        let deletedPost = await ReportModel.deleteMany({
+            post_id: req.params.post_id
+        })
+        res.json({message: 'many deleted'})
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
+
 module.exports = router

@@ -27,12 +27,14 @@ onMount(async()=>{
         noReport = true;
     }
 
+    console.log(reportData)
+
 
 })
     
 
-const handleModalDelete = async e =>{
-    e.preventDefault()
+const handleModalDelete = async event =>{
+    event.preventDefault()
 
     let reData = await fetch(`http://localhost:3000/posts/delete/${event.target.name}`,  {
             method: 'DELETE', // Method itself
@@ -44,7 +46,9 @@ const handleModalDelete = async e =>{
         reData = await reData.json()
 
         if(reData.message === 'deleted'){
-            handleModalNVM()
+
+            deleteManyReport(event.target.name)
+
             window.location.reload()
         }
 
@@ -71,6 +75,22 @@ const handleModalNVM = async e =>{
 
 const handleModalWarn = e =>{
     e.preventDefault()
+}
+
+async function deleteManyReport(post_id){
+
+    let reData = await fetch(`http://localhost:3000/reports/deleteMany/${post_id}`,  {
+            method: 'DELETE', // Method itself
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+            },
+ 
+        })
+
+    reData = await reData.json()
+
+    console.log(reData)
+    
 }
 
 ///Left bar JS

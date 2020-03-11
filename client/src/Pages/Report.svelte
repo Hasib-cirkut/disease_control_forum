@@ -4,6 +4,8 @@
     CardImg, CardSubtitle, CardText, CardTitle
   } from "sveltestrap";
 
+  import {navigate} from 'svelte-routing'
+
   export let post_id;
   let description = ''
 
@@ -27,7 +29,7 @@
 
         reData = await reData.json()
 
-        console.log(reData)
+        navigate('/index')
     }
 </script>
 
