@@ -6,6 +6,8 @@ import {navigate} from 'svelte-routing'
 
 import {Button, Modal, ModalBody, ButtonGroup,ModalHeader} from 'sveltestrap'
 
+let showList = [true, false, false]
+
 let open = false;
 let noReport = false;
 
@@ -25,12 +27,14 @@ onMount(async()=>{
         noReport = true;
     }
 
+    console.log(reportData)
+
 
 })
     
 
-const handleModalDelete = async e =>{
-    e.preventDefault()
+const handleModalDelete = async event =>{
+    event.preventDefault()
 
     let reData = await fetch(`http://localhost:3000/posts/delete/${event.target.name}`,  {
             method: 'DELETE', // Method itself
@@ -42,7 +46,9 @@ const handleModalDelete = async e =>{
         reData = await reData.json()
 
         if(reData.message === 'deleted'){
-            handleModalNVM()
+
+            deleteManyReport(event.target.name)
+
             window.location.reload()
         }
 
@@ -70,6 +76,32 @@ const handleModalNVM = async e =>{
 const handleModalWarn = e =>{
     e.preventDefault()
 }
+
+async function deleteManyReport(post_id){
+
+    let reData = await fetch(`http://localhost:3000/reports/deleteMany/${post_id}`,  {
+            method: 'DELETE', // Method itself
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+            },
+ 
+        })
+
+    reData = await reData.json()
+
+    console.log(reData)
+    
+}
+
+///Left bar JS
+
+const handleLeftBar = arg =>{
+    for(let i=0; i<showList.length; i++){
+        showList[i] = false
+    }
+
+    showList[arg-1] = true;
+}
 </script>
 
 <div class="container">
@@ -78,49 +110,62 @@ const handleModalWarn = e =>{
 
             <div class="left-bar">
             
-                <button>Reports</button>
-                <button>Adminship</button>
+                <button class="btn-primary" on:click={() => {handleLeftBar(1)}}>Reports</button>
+                <button class="btn-primary" on:click={() => {handleLeftBar(2)}}>Adminship</button>
             
             </div>
 
         </div>
 
         <div class="right">
+        {#if showList[0]}
+
+        <h3>Reports</h3>
         
-        {#if noReport}
-        <p>No reports. Hurray. Great adminship</p>
-            
-        {:else}
-                {#each reportData as {post_id, description, _id}}
+            {#if noReport}
+            <p>No reports. Hurray. Great adminship</p>
+                
+            {:else}
+                    {#each reportData as {post_id, description, _id}}
 
-                <div class="card" style="width: 28rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Report</h5>
+                    <div class="card" style="width: 28rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Report</h5>
+                            
+                            <p class="card-text">{description}</p>
                         
-                        <p class="card-text">{description}</p>
-                    
-                    <div class="col-sm-12" style="padding: 0;">
-                        <a class="btn btn-outline-success btn-sm" href={`/posts/${post_id}`} role="button" style="color:black; margin-bottom:2vh">Visit post</a>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <a class="btn btn-outline-success btn-sm" href={`/posts/${post_id}`} role="button" style="color:black; margin-bottom:2vh">Visit post</a>
+                        </div>
+
+                        <Button size="sm" color="success" on:click={handleModalNVM} name={`${_id}`}>
+                            Never mind
+                        </Button>
+
+                        <Button size="sm" color="warning" on:click={handleModalWarn} name={`${_id}`}>
+                            Warn
+                        </Button>
+
+                        <Button size="sm" color="danger" on:click={handleModalDelete} name={`${post_id}`}>
+                            Delete Post
+                        </Button>
+
+                        </div>
                     </div>
+                        
+                    {/each}
 
-                    <Button size="sm" color="success" on:click={handleModalNVM} name={`${_id}`}>
-                        Never mind
-                    </Button>
-
-                    <Button size="sm" color="warning" on:click={handleModalWarn} name={`${_id}`}>
-                        Warn
-                    </Button>
-
-                    <Button size="sm" color="danger" on:click={handleModalDelete} name={`${post_id}`}>
-                        Delete Post
-                    </Button>
-
-                    </div>
-                </div>
-                    
-                {/each}
+            {/if}
 
         {/if}
+
+        {#if showList[1]}
+            <h3>Admin Panel</h3>
+
+            <p>Shadin ekhon 12 tay bashay chole jay</p>
+        {/if}
+
+        
             
         </div>
 
