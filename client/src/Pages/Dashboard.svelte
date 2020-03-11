@@ -6,7 +6,7 @@ import {navigate} from 'svelte-routing'
 
 import {Button, Modal, ModalBody, ButtonGroup,ModalHeader} from 'sveltestrap'
 
-let showList = [false, false, false]
+let showList = [true, false, false]
 
 let open = false;
 let noReport = false;
