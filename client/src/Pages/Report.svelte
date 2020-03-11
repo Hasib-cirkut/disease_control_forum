@@ -4,15 +4,16 @@
     CardImg, CardSubtitle, CardText, CardTitle
   } from "sveltestrap";
 
-  export let post_id;
+  import {navigate} from 'svelte-routing'
 
-  console.log(post_id)
+  export let post_id;
+  let description = ''
 
   const handleReport = async (event) =>{
         event.preventDefault()
 
         let data = {
-            post_id: event.target.name,
+            post_id,
             description
         }
 
@@ -27,6 +28,8 @@
         })
 
         reData = await reData.json()
+
+        navigate('/index')
     }
 </script>
 
@@ -38,11 +41,8 @@
   </CardHeader>
   <CardBody>
     <CardSubtitle>Card subtitle</CardSubtitle>
-    <CardText>
-      Some quick example text to build on the card title
-      and make up the bulk of the card's content.
-    </CardText>
-    <Button>Button</Button>
+      <textarea required bind:value={description}></textarea>
+    <Button on:click={handleReport}>Button</Button>
   </CardBody>
   <CardFooter>Footer</CardFooter>
 </Card>
