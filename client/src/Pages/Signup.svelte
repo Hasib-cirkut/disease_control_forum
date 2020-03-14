@@ -2,6 +2,7 @@
     
 	import {Link} from 'svelte-routing'
 	import Login from './Login.svelte'
+	import {postFetch} from '../Js/Fetch.js'
 	
 	let name = '', username = '', email = '', password = '';
 	let useradded = false
@@ -10,19 +11,10 @@
 		e.preventDefault()
 
 		let data = {name, username, email, password}
-		data = await JSON.stringify(data)
+		
 
-		let receivedData = await fetch('http://localhost:3000/users/addUser', {
-			method: "POST",
-			
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-			})
-			
-		receivedData = await receivedData.json()
-
+		let receivedData = await postFetch('http://localhost:3000/users/addUser', data)
+		
 		if(receivedData.message === 'useradded'){
 			useradded = true
 		}

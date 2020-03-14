@@ -2,6 +2,7 @@
     
 	import {Link} from 'svelte-routing'
 	import Home from './Home.svelte'
+	import {postFetch} from '../Js/Fetch.js'
 
 	let username = '', password = '';
 	let userfound = false;
@@ -10,20 +11,8 @@
 		e.preventDefault()
 
 		let data = {username, password}
-		data = await JSON.stringify(data)
-		
 
-		let receivedData = await fetch('http://localhost:3000/users/login', {
-			method: "POST",
-			
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-            })
-
-		receivedData = await receivedData.json()
-
+		let receivedData = await postFetch('http://localhost:3000/users/login', data)
 
 		if(receivedData.message === 'userfound'){
 			userfound = true

@@ -3,6 +3,7 @@
 
     import Navbar from '../Components/Navbar.svelte'
     import {onMount} from 'svelte'
+    import {getFetch, postFetch} from '../Js/Fetch.js'
 
 
     let loved = false;
@@ -12,13 +13,9 @@
 
     onMount(async ()=>{
 
-        let reData = await fetch(`http://localhost:3000/posts/${id}`)
-        
-        reData = await reData.json()
+        let reData = await getFetch(`http://localhost:3000/posts/${id}`)
 
-        let authorData = await fetch(`http://localhost:3000/users/bypost/${reData[0].author}`)
-
-        authorData = await authorData.json()
+        let authorData = await getFetch(`http://localhost:3000/users/bypost/${reData[0].author}`)
 
         title = reData[0].title
         author = reData[0].author

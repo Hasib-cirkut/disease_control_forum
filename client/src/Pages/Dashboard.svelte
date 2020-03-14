@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar.svelte'
 import {reportStore} from '../Stores/report.js'
 import {onMount} from 'svelte'
 import {navigate} from 'svelte-routing'
+import {deleteFetch} from '../Js/Fetch'
 
 import {Button, Modal, ModalBody, ButtonGroup,ModalHeader} from 'sveltestrap'
 
@@ -36,14 +37,8 @@ onMount(async()=>{
 const handleModalDelete = async event =>{
     event.preventDefault()
 
-    let reData = await fetch(`http://localhost:3000/posts/delete/${event.target.name}`,  {
-            method: 'DELETE', // Method itself
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
-            },
- 
-        })
-        reData = await reData.json()
+    let reData = await deleteFetch(`http://localhost:3000/posts/delete/${event.target.name}`)
+        
 
         if(reData.message === 'deleted'){
 
@@ -59,14 +54,7 @@ const handleModalDelete = async event =>{
 const handleModalNVM = async e =>{
     e.preventDefault()
 
-    let reData = await fetch(`http://localhost:3000/reports/${e.target.name}`, {
-            method: 'DELETE',
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-            },
- 
-        })
-    reData = await reData.json()
+    let reData = await deleteFetch(`http://localhost:3000/reports/${e.target.name}`)
 
     if(reData.message === 'deleted'){
         window.location.reload()
@@ -79,18 +67,9 @@ const handleModalWarn = e =>{
 
 async function deleteManyReport(post_id){
 
-    let reData = await fetch(`http://localhost:3000/reports/deleteMany/${post_id}`,  {
-            method: 'DELETE', // Method itself
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
-            },
- 
-        })
+    let reData = await deleteFetch(`http://localhost:3000/reports/deleteMany/${post_id}`)
 
     reData = await reData.json()
-
-    console.log(reData)
-    
 }
 
 ///Left bar JS

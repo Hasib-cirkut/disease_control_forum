@@ -4,6 +4,7 @@
     import {onMount} from 'svelte'
     import readableDate from '../Js/readableDate'
     import {navigate} from 'svelte-routing'
+    import {postFetch} from '../Js/Fetch.js'
 
     let name, bio, joined, email, location, work, username, profession= ''
 

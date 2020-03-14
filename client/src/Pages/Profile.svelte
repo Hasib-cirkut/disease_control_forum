@@ -5,7 +5,7 @@ export let currentUsername;
 import Navbar from '../Components/Navbar.svelte'
 import { Link } from "svelte-routing";
 import Login from '../Pages/Login.svelte'
-
+import {getFetch} from '../Js/Fetch.js'
 import {onMount} from 'svelte'
 
 import readableDate from '../Js/readableDate'
@@ -24,12 +24,11 @@ if(localStorage.length === 0){
 }
 
 onMount(async()=>{
-    let reData = await fetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
-
-    viewData = await reData.json()
-
+    let viewData = await getFetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
 
     let localUserData = JSON.parse(localStorage.userdata)
+
+    //console.log(localUserData)
 
     name = localUserData.name
     username = localUserData.username
@@ -277,7 +276,7 @@ onMount(async()=>{
                     <Link to={'/addpost'}><button id="addpost-btn">Post</button></Link>
 
 
-                    {#if work === undefined}
+                    {#if work === undefined || location === null}
                         <p id="bio"><Link to={"/editprofile"}>Update Bio+</Link></p>
                     {:else}
                         <p id="bio">{bio}</p>
@@ -287,7 +286,7 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    {#if work === undefined}
+                    {#if work === undefined || location === null}
                         <span id="workInfo"><Link to={"/editprofile"}>Update Work+</Link></span>
                     {:else}
                         <span id="workInfo">{work}</span>
@@ -295,7 +294,7 @@ onMount(async()=>{
                     
 
                     <h4 id="location">Location</h4>
-                    {#if location === undefined}
+                    {#if location === undefined || location === null}
                         <span id="locationInfo"><Link to={"/editprofile"}>Update Location+</Link></span>
                     {:else}
                         <span id="locationInfo">{location}</span>

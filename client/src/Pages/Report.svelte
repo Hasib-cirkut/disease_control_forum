@@ -5,6 +5,7 @@
   } from "sveltestrap";
 
   import {navigate} from 'svelte-routing'
+  import {postFetch} from '../Js/Fetch.js'
 
   export let post_id;
   let description = ''
@@ -17,25 +18,14 @@
             description
         }
 
-        data = await JSON.stringify(data)
+        let reData  = await postFetch('http://localhost:3000/reports/submitReport', data)
 
-        let reData  = await fetch('http://localhost:3000/reports/submitReport', {
-            method: 'POST',
-            headers: {
-            'Content-type': 'application/json' 
-            },
-            body: data
-        })
 
-        reData = await reData.json()
-
-<<<<<<< HEAD
         if(reData.message === 'reportsubmitted'){
             navigate('/index')
         }
-=======
         navigate('/index')
->>>>>>> fbb7e586ea6bcb3e68f5940d418af74958c9c871
+
     }
 </script>
 
@@ -46,17 +36,8 @@
     <CardTitle>Report</CardTitle>
   </CardHeader>
   <CardBody>
-<<<<<<< HEAD
-
-  <Input type="textarea" bind:value={description}/>
-
-    
-    <Button on:click={handleReport}>Submit Report</Button>
-=======
-    <CardSubtitle>Card subtitle</CardSubtitle>
       <textarea required bind:value={description}></textarea>
     <Button on:click={handleReport}>Button</Button>
->>>>>>> fbb7e586ea6bcb3e68f5940d418af74958c9c871
   </CardBody>
   <CardFooter>We will inform the author.</CardFooter>
 </Card>

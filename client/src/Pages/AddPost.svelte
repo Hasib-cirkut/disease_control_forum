@@ -1,6 +1,7 @@
 <script>
     import Navbar from '../Components/Navbar.svelte'
     import Home from '../Pages/Home.svelte'
+    import {postFetch} from '../Js/Fetch'
 
     let title = '', tags = '', body = '';
     let showTitleError = false;
@@ -16,17 +17,7 @@
 
             let data = {title, tags, body, user}
 
-            data = await JSON.stringify(data)
-
-            let reData = await fetch('http://localhost:3000/posts/addpost', {
-                method: 'POST',
-                headers: {
-                'Content-type': 'application/json'
-                },
-                body: data
-            })
-            
-            reData = await reData.json()
+            let reData = await postFetch('http://localhost:3000/posts/addpost', data)
 
             if(reData.message === 'postadded'){
                 postAdded = true;

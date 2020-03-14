@@ -2,6 +2,7 @@
     import Navbar from '../Components/Navbar.svelte'
     import {Link, navigate} from 'svelte-routing'
     import readableDate from '../Js/readableDate.js'
+    import {getFetch} from '../Js/Fetch'
 
     import {Collapse, Card} from 'sveltestrap'
 
@@ -13,9 +14,9 @@
     let userType;
 
     onMount(async()=>{
-    let reData = await fetch(`http://localhost:3000/posts/`)
 
-    viewData = await reData.json()
+    viewData = await getFetch("http://localhost:3000/posts/")
+
 
 
     for(let i=0; i<viewData.length; i++){
