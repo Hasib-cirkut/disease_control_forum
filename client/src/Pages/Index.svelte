@@ -79,7 +79,7 @@
                 
                     <h3>{post.title}</h3>
                     <Link to={`/posts/${post._id}`}>
-                        <p style="margin-left: 30px">Read post...</p>
+                        <p style="margin-left: 30px">addaf post...</p>
                     </Link>
                     <div id="usernameANDdate">
                         <h4>@{post.author}</h4>
@@ -94,7 +94,6 @@
             {#if userType === 'root' || userType === 'admin'}
                 <button id="delete-btn" name={post._id} on:click={handleDelete}>delete</button>
             {/if}
-
             
     {/each}
 

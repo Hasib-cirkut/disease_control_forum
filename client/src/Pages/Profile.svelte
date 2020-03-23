@@ -24,11 +24,11 @@ if(localStorage.length === 0){
 }
 
 onMount(async()=>{
-    let viewData = await getFetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
+    viewData = await getFetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
 
     let localUserData = JSON.parse(localStorage.userdata)
 
-    //console.log(localUserData)
+    console.log(viewData)
 
     name = localUserData.name
     username = localUserData.username
@@ -48,6 +48,104 @@ onMount(async()=>{
 </script>
 
 
+
+{#if userloggedin === true}
+<Navbar />
+
+<div class="body">
+
+        <div class="left-block">
+        </div>
+
+        <div class="middle-block">
+            <div class="profile-card">
+                <img src="/avatar.jpg" alt="avatar">
+                <div class="profile-info">
+                    <h4 id="username">{name}</h4>
+                    {#if  followButton}
+                        <button id="follow">Follow</button>
+                    {:else}
+                        <Link to={"/editprofile"}><button id="editprofile">Edit Profile</button></Link>
+                    {/if}
+
+                    <Link to={'/addpost'}><button id="addpost-btn">Post Something</button></Link>
+
+
+                    {#if work === undefined || location === null}
+                        <p id="bio"><Link to={"/editprofile"}>Update Bio+</Link></p>
+                    {:else}
+                        <p id="bio">{bio}</p>
+                    {/if}
+                </div>
+
+                <div class="additional-info">
+
+                    <h4 id="work">Work</h4>
+                    {#if work === undefined || location === null}
+                        <span id="workInfo"><Link to={"/editprofile"}>Update Work+</Link></span>
+                    {:else}
+                        <span id="workInfo">{work}</span>
+                    {/if}
+                    
+
+                    <h4 id="location">Location</h4>
+                    {#if location === undefined || location === null}
+                        <span id="locationInfo"><Link to={"/editprofile"}>Update Location+</Link></span>
+                    {:else}
+                        <span id="locationInfo">{location}</span>
+                    {/if}
+
+                    <h4 id="join">Joined</h4>
+                    <span id="joinInfo">{joined}</span>
+                
+                </div>
+            </div>
+
+            <div class="userInterest">
+            
+            </div>
+
+            <div class="userPosts">
+
+            {#each viewData as post}
+            <Link to={`/posts/${post._id}`}>
+                <div class="post" name={post._id}>
+
+                    <h3>{post.title}</h3>
+                    <div id="usernameANDdate">
+                        <h4>@{post.author}</h4>
+                        <p>{post.date.slice(0, 10)}</p>
+                    </div> <br>
+                    
+                    <span>{post.tags}</span>
+
+                </div>
+            </Link>
+            {/each}
+            
+                
+            
+            </div>
+
+            
+
+            <div class="adds">
+            
+            </div>
+        </div>
+
+        <div class="right-block">
+
+            
+        
+        </div>
+</div>
+
+{:else}
+<Login />
+{/if}
+
+    
 <style>
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -249,105 +347,4 @@ onMount(async()=>{
     #usernameANDdate{
         display: inline-block;
     }
-
-
-
 </style>
-
-{#if userloggedin === true}
-<Navbar />
-
-<div class="body">
-
-        <div class="left-block">
-        </div>
-
-        <div class="middle-block">
-            <div class="profile-card">
-                <img src="/avatar.jpg" alt="avatar">
-                <div class="profile-info">
-                    <h4 id="username">{name}</h4>
-                    {#if  followButton}
-                        <button id="follow">Follow</button>
-                    {:else}
-                        <Link to={"/editprofile"}><button id="editprofile">Edit Profile</button></Link>
-                    {/if}
-
-                    <Link to={'/addpost'}><button id="addpost-btn">Post</button></Link>
-
-
-                    {#if work === undefined || location === null}
-                        <p id="bio"><Link to={"/editprofile"}>Update Bio+</Link></p>
-                    {:else}
-                        <p id="bio">{bio}</p>
-                    {/if}
-                </div>
-
-                <div class="additional-info">
-
-                    <h4 id="work">Work</h4>
-                    {#if work === undefined || location === null}
-                        <span id="workInfo"><Link to={"/editprofile"}>Update Work+</Link></span>
-                    {:else}
-                        <span id="workInfo">{work}</span>
-                    {/if}
-                    
-
-                    <h4 id="location">Location</h4>
-                    {#if location === undefined || location === null}
-                        <span id="locationInfo"><Link to={"/editprofile"}>Update Location+</Link></span>
-                    {:else}
-                        <span id="locationInfo">{location}</span>
-                    {/if}
-
-                    <h4 id="join">Joined</h4>
-                    <span id="joinInfo">{joined}</span>
-                
-                </div>
-            </div>
-
-            <div class="userInterest">
-            
-            </div>
-
-            <div class="userPosts">
-
-            {#each viewData as post}
-            <Link to={`/posts/${post._id}`}>
-                <div class="post" name={post._id}>
-
-                    <h3>{post.title}</h3>
-                    <div id="usernameANDdate">
-                        <h4>@{post.author}</h4>
-                        <p>{post.date.slice(0, 10)}</p>
-                    </div> <br>
-                    
-                    <span>{post.tags}</span>
-
-                </div>
-            </Link>
-            {/each}
-            
-                
-            
-            </div>
-
-            
-
-            <div class="adds">
-            
-            </div>
-        </div>
-
-        <div class="right-block">
-
-            
-        
-        </div>
-</div>
-
-{:else}
-<Login />
-{/if}
-
-    

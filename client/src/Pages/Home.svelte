@@ -2,7 +2,6 @@
 import Navbar from '../Components/Navbar.svelte'
 </script>
 
-
 <style>
 
     .body{

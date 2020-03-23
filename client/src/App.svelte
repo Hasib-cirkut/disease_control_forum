@@ -12,11 +12,12 @@
 	import Dashboard from './Pages/Dashboard.svelte'
 	import Report from './Pages/Report.svelte'
 	import NotFound from './Pages/NotFound.svelte'
-
+	import Tailwindcss from './Tailwindcss.svelte'
 	
 
 </script>
 
+<Tailwindcss />
 
 <Router>
 
