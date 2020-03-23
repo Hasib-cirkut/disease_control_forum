@@ -15,12 +15,13 @@ router.get('/allReport', async (req, res)=>{
 })
 
 router.post('/submitReport', async (req, res)=>{
-    let {post_id, description} = req.body;
+    let {post_id, description, title} = req.body;
 
     console.log(req.body)
 
     let report = new ReportModel({
         post_id,
+        title,
         description
     })
 
