@@ -4,6 +4,7 @@ import {reportStore} from '../Stores/report.js'
 import {onMount} from 'svelte'
 import {navigate} from 'svelte-routing'
 import {deleteFetch} from '../Js/Fetch'
+import ReportCard from '../Components/ReportCard.svelte'
 
 import {Button, Modal, ModalBody, ButtonGroup,ModalHeader} from 'sveltestrap'
 
@@ -19,58 +20,14 @@ let reportData = [];
 
 onMount(async()=>{
 
-    
-
     reportData = await $reportStore;
-
 
     if(reportData.message === 'noreportfound'){
         noReport = true;
     }
 
-    console.log(reportData)
-
-
 })
     
-
-const handleModalDelete = async event =>{
-    event.preventDefault()
-
-    let reData = await deleteFetch(`http://localhost:3000/posts/delete/${event.target.name}`)
-        
-
-        if(reData.message === 'deleted'){
-
-            deleteManyReport(event.target.name)
-
-            window.location.reload()
-        }
-
-
-    
-}
-
-const handleModalNVM = async e =>{
-    e.preventDefault()
-
-    let reData = await deleteFetch(`http://localhost:3000/reports/${e.target.name}`)
-
-    if(reData.message === 'deleted'){
-        window.location.reload()
-    }
-}
-
-const handleModalWarn = e =>{
-    e.preventDefault()
-}
-
-async function deleteManyReport(post_id){
-
-    let reData = await deleteFetch(`http://localhost:3000/reports/deleteMany/${post_id}`)
-
-    reData = await reData.json()
-}
 
 ///Left bar JS
 
@@ -87,10 +44,18 @@ const handleLeftBar = arg =>{
 
         <div class="left">
 
-            <div class="left-bar">
+            <div class="left-bar flex-col">
+
+                <button class="py-2 px-4 w-full h-12 bg-gray-200 rounded-sm text-gray-700 font-light focus:outline-none tracking-wider" on:click={() => {handleLeftBar(1)}}>Reports</button>
+
+
             
-                <button class="btn-primary" on:click={() => {handleLeftBar(1)}}>Reports</button>
-                <button class="btn-primary" on:click={() => {handleLeftBar(2)}}>Adminship</button>
+                <button class="py-2 px-4 w-full h-12 bg-gray-200 rounded-sm text-gray-700 font-light focus:outline-none tracking-wider mt-4" on:click={() => {handleLeftBar(2)}}>Admin request</button>
+
+                <button class="py-2 px-4 w-full h-12 bg-gray-200 rounded-sm text-gray-700 font-light focus:outline-none tracking-wider mt-4" on:click={() => {handleLeftBar(2)}}>Stats</button>
+
+        
+       
             
             </div>
 
@@ -99,15 +64,25 @@ const handleLeftBar = arg =>{
         <div class="right">
         {#if showList[0]}
 
-        <h3>Reports</h3>
+        <div class="w-7/12 h-16 bg-teal-500 rounded-sm text-gray-800 font-thin items-center px-4 py-2">
+            
+            <span class="text-3xl">Reports</span >
+        
+        </div>
         
             {#if noReport}
             <p>No reports. Hurray. Great adminship</p>
                 
             {:else}
-                    {#each reportData as {post_id, description, _id, title}}
+                    {#each reportData as post}
 
-                    <div class="card w-4/12 bg-gray-200 h-auto rounded-md shadow-lg">
+                    <ReportCard data={post}/>
+
+                    <!-- 
+
+
+
+                    <div class="card w-4/12 bg-gray-200 h-auto rounded-md shadow-lg mt-4">
                         <div class="card-body p-4 pb-2">
                             <h5 class="card-title text-center font-thin text-3xl text-orange-500 tracking-wider">Report</h5>
 
@@ -140,6 +115,7 @@ const handleLeftBar = arg =>{
                         </div>
                     </div>
                         
+                     -->
                     {/each}
 
             {/if}
