@@ -105,29 +105,37 @@ const handleLeftBar = arg =>{
             <p>No reports. Hurray. Great adminship</p>
                 
             {:else}
-                    {#each reportData as {post_id, description, _id}}
+                    {#each reportData as {post_id, description, _id, title}}
 
-                    <div class="card" style="width: 28rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Report</h5>
-                            
-                            <p class="card-text">{description}</p>
+                    <div class="card w-4/12 bg-gray-200 h-auto rounded-md shadow-lg">
+                        <div class="card-body p-4 pb-2">
+                            <h5 class="card-title text-center font-thin text-3xl text-orange-500 tracking-wider">Report</h5>
+
+                            <div class="w-full text-center text-sm mt-2">
+                                <span class="font-medium text-md text-gray-700">{title}</span>
+                            </div>
+
+                            <div class="w-full p-2 mt-2 ">
+                                <p class="card-text break-words h-auto font-medium text-sm text-gray-700">{description}</p>
+                            </div>
                         
-                        <div class="col-sm-12" style="padding: 0;">
-                            <a class="btn btn-outline-success btn-sm" href={`/posts/${post_id}`} role="button" style="color:black; margin-bottom:2vh">Visit post</a>
-                        </div>
 
-                        <Button size="sm" color="success" on:click={handleModalNVM} name={`${_id}`}>
-                            Never mind
-                        </Button>
+                            <div class="flex justify-between my-4">
 
-                        <Button size="sm" color="warning" on:click={handleModalWarn} name={`${_id}`}>
-                            Warn
-                        </Button>
+                                <a class=" shadow w-2/6 h-8 text-center rounded-sm p-1 text-gray-300 mr-2 bg-gray-500 border-b-4 hover:border-gray-600 transition duration-700 ease-in-out" href={`/posts/${post_id}`} role="button" >Visit post</a>
 
-                        <Button size="sm" color="danger" on:click={handleModalDelete} name={`${post_id}`}>
-                            Delete Post
-                        </Button>
+                                <button class=" shadow w-2/6 h-8 rounded-sm p-1 text-gray-300 mr-2 bg-green-500 border-b-4  hover:border-green-600 transition duration-700 ease-in-out" on:click={handleModalNVM} name={`${_id}`}>
+                                    Never mind
+                                </button>
+
+                                <button class=" shadow w-2/6 h-8 rounded-sm p-1 text-gray-300 mr-2  bg-yellow-500 border-b-4 hover:border-yellow-600 transition duration-700 ease-in-out" on:click={handleModalWarn} name={`${_id}`}>
+                                    Warn
+                                </button>
+
+                                <button class=" shadow w-2/6 h-8 rounded-sm p-1 text-gray-300  bg-red-500 border-b-4 hover:border-red-600 transition duration-700 ease-in-out" on:click={handleModalDelete} name={`${post_id}`}>
+                                    Delete Post
+                                </button>
+                            </div>
 
                         </div>
                     </div>
