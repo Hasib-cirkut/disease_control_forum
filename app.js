@@ -10,6 +10,7 @@ app.use(cookieParser())
 const postRoute = require('./Routes/posts')
 const userRoute = require('./Routes/users')
 const reportRoute = require('./Routes/reports')
+const searchRoute = require('./Routes/search')
 
 //middleWare
 
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use('/posts', postRoute)
 app.use('/users', userRoute)
 app.use('/reports', reportRoute)
+app.use('/search', searchRoute)
 
 app.use(express.urlencoded({
     extended: false

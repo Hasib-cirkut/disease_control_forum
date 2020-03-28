@@ -299,7 +299,7 @@ onMount(async()=>{
         box-sizing: border-box;
         box-shadow: -3px 4px 0px rgba(0, 56, 255, 0.74);
 
-        height: 180px;
+        min-height: 15vh;
         margin-bottom: 30px;
     }
 

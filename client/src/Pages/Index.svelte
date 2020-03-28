@@ -70,16 +70,16 @@
     
     </div>
 
-    <div class="middle">
+    <div class="middle pb-8">
 
     
     {#each viewData as post}
         
-                <div class="post">
+                <div class="post pb-3 shadow-lg">
                 
                     <h3>{post.title}</h3>
                     <Link to={`/posts/${post._id}`}>
-                        <p style="margin-left: 30px">addaf post...</p>
+                        <p class="px-4 py-2 text-white shadow-sm rounded-sm tracking-wider bg-teal-500 w-1/5" style="margin-left: 30px">See post...</p>
                     </Link>
                     <div id="usernameANDdate">
                         <h4>@{post.author}</h4>
@@ -88,11 +88,11 @@
                     
                     <span>{post.tags}</span>
 
-                    <button id="report-btn" name={post._id} on:click={handleReport}>report</button>
+                    <button class="px-2 py-1" id="report-btn" name={post._id} on:click={handleReport}>report</button>
                 </div>
             
             {#if userType === 'root' || userType === 'admin'}
-                <button id="delete-btn" name={post._id} on:click={handleDelete}>delete</button>
+                <button class="px-4 py-2 bg-red-600 text-gray-200 tracking-wider shadow-sm" id="delete-btn" name={post._id} on:click={handleDelete}>delete</button>
             {/if}
             
     {/each}
@@ -167,7 +167,6 @@
     }
 
     #usernameANDdate > h4{
-        position: absolute;
         width: 88px;
         color: #F9003C;
     }

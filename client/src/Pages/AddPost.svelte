@@ -1,6 +1,6 @@
 <script>
     import Navbar from '../Components/Navbar.svelte'
-    import Home from '../Pages/Home.svelte'
+    import Index from '../Pages/Index.svelte'
     import {postFetch} from '../Js/Fetch'
 
     let title = '', tags = '', body = '';
@@ -29,6 +29,45 @@
         
     }
 </script>
+
+
+{#if postAdded}
+    <Index />
+{:else}
+    <Navbar />
+
+<div class="body">
+
+    <div class="left-bar"></div>
+
+    <div class="main-input">
+
+        {#if showTitleError}
+            <div class="noTitleError">
+                <p>You have to add title</p>
+            </div>
+        {/if}
+
+        
+
+
+            <input type="text" id="title" placeholder="Title" required bind:value={title}>
+            <input type="text" id="tags" placeholder="4 Tags max. space separated." required bind:value={tags}>
+            <textarea id="body" cols="30" rows="30" required bind:value={body}></textarea>
+        
+    </div>
+
+    <div class="right-bar"></div>
+
+    <footer>
+        <button on:click={handlePublish}>Publish</button>
+
+        <p>developed by hasib</p>
+    </footer>
+
+</div>
+{/if}
+
 
 <style>
 
@@ -136,41 +175,3 @@
     }
 
 </style>
-
-{#if postAdded}
-    <Home />
-{:else}
-    <Navbar />
-
-<div class="body">
-
-    <div class="left-bar"></div>
-
-    <div class="main-input">
-
-        {#if showTitleError}
-            <div class="noTitleError">
-                <p>You have to add title</p>
-            </div>
-        {/if}
-
-        
-
-
-            <input type="text" id="title" placeholder="Title" required bind:value={title}>
-            <input type="text" id="tags" placeholder="4 Tags max. space separated." required bind:value={tags}>
-            <textarea id="body" cols="30" rows="30" required bind:value={body}></textarea>
-        
-    </div>
-
-    <div class="right-bar"></div>
-
-    <footer>
-        <button on:click={handlePublish}>Publish</button>
-
-        <p>developed by hasib</p>
-    </footer>
-
-</div>
-{/if}
-
