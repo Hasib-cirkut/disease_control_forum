@@ -62,7 +62,7 @@
 
 <Navbar />
 
-<div class="index">
+<div class="index bg-blueishblack">
 
     <div class="leftleft" />
 

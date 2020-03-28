@@ -71,52 +71,19 @@ const handleLeftBar = arg =>{
         </div>
         
             {#if noReport}
-            <p>No reports. Hurray. Great adminship</p>
+
+                <div class="mt-4 px-8 py-4 bg-blue-700 w-2/6 h-32 text-center rounded-sm">
+
+                    <p class="my-4 text-2xl tracking-wider font-hairline text-gray-200">No <span class="text-orange-500 font-normal">reports</span>. Hurray. Great adminship</p>
+                    
+                </div>
                 
             {:else}
-                    {#each reportData as post}
+                {#each reportData as post}
 
                     <ReportCard data={post}/>
 
-                    <!-- 
-
-
-
-                    <div class="card w-4/12 bg-gray-200 h-auto rounded-md shadow-lg mt-4">
-                        <div class="card-body p-4 pb-2">
-                            <h5 class="card-title text-center font-thin text-3xl text-orange-500 tracking-wider">Report</h5>
-
-                            <div class="w-full text-center text-sm mt-2">
-                                <span class="font-medium text-md text-gray-700">{title}</span>
-                            </div>
-
-                            <div class="w-full p-2 mt-2 ">
-                                <p class="card-text break-words h-auto font-medium text-sm text-gray-700">{description}</p>
-                            </div>
-                        
-
-                            <div class="flex justify-between my-4">
-
-                                <a class=" shadow w-2/6 h-8 text-center rounded-sm p-1 text-gray-300 mr-2 bg-gray-500 border-b-4 hover:border-gray-600 transition duration-700 ease-in-out" href={`/posts/${post_id}`} role="button" >Visit post</a>
-
-                                <button class=" shadow w-2/6 h-8 rounded-sm p-1 text-gray-300 mr-2 bg-green-500 border-b-4  hover:border-green-600 transition duration-700 ease-in-out" on:click={handleModalNVM} name={`${_id}`}>
-                                    Never mind
-                                </button>
-
-                                <button class=" shadow w-2/6 h-8 rounded-sm p-1 text-gray-300 mr-2  bg-yellow-500 border-b-4 hover:border-yellow-600 transition duration-700 ease-in-out" on:click={handleModalWarn} name={`${_id}`}>
-                                    Warn
-                                </button>
-
-                                <button class=" shadow w-2/6 h-8 rounded-sm p-1 text-gray-300  bg-red-500 border-b-4 hover:border-red-600 transition duration-700 ease-in-out" on:click={handleModalDelete} name={`${post_id}`}>
-                                    Delete Post
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                        
-                     -->
-                    {/each}
+                {/each}
 
             {/if}
 
