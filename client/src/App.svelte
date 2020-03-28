@@ -12,7 +12,8 @@
 	import Dashboard from './Pages/Dashboard.svelte'
 	import Report from './Pages/Report.svelte'
 	import NotFound from './Pages/NotFound.svelte'
-	import Tailwindcss from './Tailwindcss.svelte'	
+	import Tailwindcss from './Tailwindcss.svelte'
+	import IndexSearch from './Pages/IndexSearch.svelte'
 
 </script>
 
@@ -43,6 +44,10 @@
 
 		<Route path="/report/:post_id" exact let:params>
 			<Report post_id = {params.post_id} />
+		</Route>
+
+		<Route path='/search/:key' exact let:params>
+			<IndexSearch key = {params.key} />
 		</Route>
 
 

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const PostModel = require('../Models/Post')
 
-router.get('/post/:key',async (req, res)=>{
+router.get('/posts/:key',async (req, res)=>{
 
     console.log(req.params.key)
     

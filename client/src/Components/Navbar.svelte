@@ -10,6 +10,12 @@
         userloggedin = true;
     }
 
+    let searchBox = ''
+
+    const handleSearch = e => {
+        window.location.replace(`http://localhost:5000/search/${searchBox}`)
+    }
+    
 
 </script>
 <style>
@@ -31,9 +37,9 @@
             <li><a href={profileurl}><span class="font-light text-lg text-gray-200  hover:text-blue-500 transition duration-500 ease-in-out">Profile</span></a></li>
             <li><a href="/about"><span class="font-light text-lg text-gray-200  hover:text-blue-500 transition duration-500 ease-in-out">About</span></a></li>
                 
-            <input class=" pl-4 rounded-sm bg-gray-700 text-gray-200" type="text">
+            <input bind:value={searchBox} class=" pl-4 rounded-sm bg-gray-700 text-gray-200" type="text">
     
-            <button class="-ml-8 bg-blue-500 mr-40 px-4 py-1 rounded-sm text-lg font-thin hover:bg-blue-400 transition duration-500 ease-in-out">Search</button>
+            <button on:click={handleSearch} class="-ml-8 bg-blue-500 mr-40 px-4 py-1 rounded-sm text-lg font-thin hover:bg-blue-400 transition duration-500 ease-in-out">Search</button>
             
         </div>
         
