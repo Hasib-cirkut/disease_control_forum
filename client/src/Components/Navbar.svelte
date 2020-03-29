@@ -31,18 +31,22 @@
 
     <ul class="flex justify-between mt-4">
 
-        <div class="flex justify-between ml-32 w-3/6">
+        <div class="flex justify-between ml-32">
 
-            <li><a href="/"><span class="font-light text-lg text-gray-200  cursor-pointer hover:text-blue-500 transition duration-500 ease-in-out">Home</span></a></li>
-            <li><a href={profileurl}><span class="font-light text-lg text-gray-200  hover:text-blue-500 transition duration-500 ease-in-out">Profile</span></a></li>
+            <li><a href="/"><span class="mr-8 font-light text-lg text-gray-200  cursor-pointer hover:text-blue-500 transition duration-500 ease-in-out">Home</span></a></li>
+            <li><a href={profileurl}><span class=" mr-8 font-light text-lg text-gray-200  hover:text-blue-500 transition duration-500 ease-in-out">Profile</span></a></li>
             <li><a href="/about"><span class="font-light text-lg text-gray-200  hover:text-blue-500 transition duration-500 ease-in-out">About</span></a></li>
                 
-            <input bind:value={searchBox} class=" pl-4 rounded-sm bg-gray-700 text-gray-200" type="text">
-    
-            <button on:click={handleSearch} class="-ml-8 bg-blue-500 mr-40 px-4 py-1 rounded-sm text-lg font-thin hover:bg-blue-400 transition duration-500 ease-in-out">Search</button>
             
         </div>
         
+            <div class="my-auto">
+
+                <input bind:value={searchBox} class="mb-1 h-10 pl-4 rounded-sm bg-gray-700 text-gray-200" type="text">
+        
+                <button on:click={handleSearch} class="h-full ml-4  bg-blue-500 mr-40 px-4 py-1 rounded-sm text-lg font-thin hover:bg-blue-400 transition duration-500 ease-in-out">Search</button>
+            
+            </div>
 
         <div class="flex">
 
