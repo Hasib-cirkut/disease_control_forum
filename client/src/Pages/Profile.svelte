@@ -72,7 +72,9 @@ onMount(async()=>{
 
 
                     {#if work === undefined || location === null}
-                        <p id="bio"><Link to={"/editprofile"}>Update Bio+</Link></p>
+                        <p id="bio"><Link to={"/editprofile"}>
+                            <span class="text-white">Update Bio+</span>
+                        </Link></p>
                     {:else}
                         <p id="bio">{bio}</p>
                     {/if}
@@ -81,8 +83,8 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    {#if work === undefined || location === null}profil
-                      <span id="workInfo"><Link to={"/editprofile"}>Update Work+</Link></span>
+                    {#if work === undefined || location === null}
+                      <span id="workInfo"><a href="/editprofile"><span class="text-white">Update Work+<span></a></span>
                     {:else}
                         <span id="workInfo">{work}</span>
                     {/if}
@@ -90,7 +92,7 @@ onMount(async()=>{
 
                     <h4 id="location">Location</h4>
                     {#if location === undefined || location === null}
-                        <span id="locationInfo"><Link to={"/editprofile"}>Update Location+</Link></span>
+                        <span id="locationInfo"><Link to={"/editprofile"}><span class="text-white">Update Location+</span></Link></span>
                     {:else}
                         <span id="locationInfo">{location}</span>
                     {/if}
@@ -184,7 +186,7 @@ onMount(async()=>{
         border: 2.5px solid #538ad6;
         box-sizing: border-box;
         box-shadow: 5px 5px 0px #2a4365;
-        min-height: 40vh;
+        height: 46vh;
         margin-top: 5vh;
         margin-bottom: 40px;
     }

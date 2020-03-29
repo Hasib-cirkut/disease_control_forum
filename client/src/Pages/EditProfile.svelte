@@ -44,7 +44,7 @@
 
         updateLocalStorage()
 
-        navigate(`/profile/${username}`)
+        window.location.replace(`/profile/${username}`)
         
     }
 
@@ -61,6 +61,8 @@
         userdata = JSON.stringify(userdata)
 
         localStorage.setItem('userdata', userdata);
+
+        return
     }
 
 

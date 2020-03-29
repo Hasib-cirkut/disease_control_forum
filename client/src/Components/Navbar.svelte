@@ -57,7 +57,7 @@
         {:else}
             <a class="" href="/"><button on:click={()=>{
                 localStorage.removeItem('user')
-                localStorage.indexremoveItem('userdata')
+                localStorage.removeItem('userdata')
         }} class="bg-blue-500 mr-40 px-4 py-1 rounded-sm text-lg font-thin hover:bg-blue-400 transition duration-500 ease-in-out">Logout</button></a>
 
         {/if}

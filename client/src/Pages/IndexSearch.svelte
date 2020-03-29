@@ -68,7 +68,7 @@
     <div class="leftleft" />
 
     <div class="left">
-        <div class="py-4 text-gray-100 tracking-wider text-lg">
+        <div class="fixed py-4 text-gray-100 tracking-wider text-lg">
 
             <p>You searched for <span class="text-orange-500">{key}</span></p>
 
