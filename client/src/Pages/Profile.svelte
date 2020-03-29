@@ -52,13 +52,13 @@ onMount(async()=>{
 {#if userloggedin === true}
 <Navbar />
 
-<div class="body">
+<div class="body bg-blueishblack min-h-screen">
 
         <div class="left-block">
         </div>
 
         <div class="middle-block">
-            <div class="profile-card">
+            <div class="profile-card bg-blue-900 text-gray-200">
                 <img src="/avatar.jpg" alt="avatar">
                 <div class="profile-info">
                     <h4 id="username">{name}</h4>
@@ -81,8 +81,8 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    {#if work === undefined || location === null}
-                        <span id="workInfo"><Link to={"/editprofile"}>Update Work+</Link></span>
+                    {#if work === undefined || location === null}profil
+                      <span id="workInfo"><Link to={"/editprofile"}>Update Work+</Link></span>
                     {:else}
                         <span id="workInfo">{work}</span>
                     {/if}
@@ -113,7 +113,7 @@ onMount(async()=>{
 
                     <h3>{post.title}</h3>
                     <div id="usernameANDdate">
-                        <h4>@{post.author}</h4>
+                        <h4 class="z-0">{post.author}</h4>
                         <p>{post.date.slice(0, 10)}</p>
                     </div> <br>
                     
@@ -157,11 +157,6 @@ onMount(async()=>{
         font-family: "monserrat", sans-serif;
     }
 
-    .body{
-        background: #F9FCFF;
-        min-height: 100vh;
-    }
-
     .middle-block {
     grid-area: middle-block;
     }
@@ -185,11 +180,11 @@ onMount(async()=>{
     }
 
     .profile-card{
-        background: #FFFFFF;
-        border: 2.5px solid #F9003C;
+        padding-bottom: 2rem;
+        border: 2.5px solid #538ad6;
         box-sizing: border-box;
-        box-shadow: 5px 5px 0px #EB00FF;
-        height: 45vh;
+        box-shadow: 5px 5px 0px #2a4365;
+        min-height: 40vh;
         margin-top: 5vh;
         margin-bottom: 40px;
     }
@@ -334,7 +329,6 @@ onMount(async()=>{
     }
 
     #usernameANDdate > h4{
-        position: absolute;
         width: 88px;
         color: #F9003C;
     }
