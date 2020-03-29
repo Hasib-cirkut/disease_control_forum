@@ -10,7 +10,7 @@ import {onMount} from 'svelte'
 
 import readableDate from '../Js/readableDate'
 
-let name, bio, joined, location, work, username= ''
+let name, bio = '', joined, location = '', work = '', username= ''
 
 let userloggedin
 let viewData = []
@@ -24,6 +24,7 @@ if(localStorage.length === 0){
 }
 
 onMount(async()=>{
+
     viewData = await getFetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
 
     let localUserData = JSON.parse(localStorage.userdata)
@@ -71,7 +72,7 @@ onMount(async()=>{
                     <Link to={'/addpost'}><button id="addpost-btn">Post Something</button></Link>
 
 
-                    {#if work === undefined || location === null}
+                    {#if bio === undefined || bio === null}
                         <p id="bio"><Link to={"/editprofile"}>
                             <span class="text-white">Update Bio+</span>
                         </Link></p>
@@ -83,7 +84,7 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    {#if work === undefined || location === null}
+                    {#if work === undefined || work === null}
                       <span id="workInfo"><a href="/editprofile"><span class="text-white">Update Work+<span></a></span>
                     {:else}
                         <span id="workInfo">{work}</span>
