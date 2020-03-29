@@ -63,12 +63,16 @@
 
 <Navbar />
 
-<div class="index">
+<div class="index bg-blueishblack">
 
     <div class="leftleft" />
 
     <div class="left">
-    
+        <div class="py-4 text-gray-100 tracking-wider text-lg">
+
+            <p>You searched for <span class="text-orange-500">{key}</span></p>
+
+        </div>
     </div>
 
     <div class="middle pb-8">
