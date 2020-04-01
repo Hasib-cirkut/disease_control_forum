@@ -74,7 +74,7 @@ onMount(async()=>{
                     <Link to={'/addpost'}><button id="addpost-btn">Post Something</button></Link>
 
 
-                    {#if bio === undefined || bio === null}
+                    {#if bio === undefined || bio === null || bio === ''}
                         <p id="bio"><Link to={"/editprofile"}>
                             <span class="text-white">Update Bio+</span>
                         </Link></p>
@@ -86,7 +86,7 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    {#if work === undefined || work === null}
+                    {#if work === undefined || work === null || work === ''}
                       <span id="workInfo"><a href="/editprofile"><span class="text-white">Update Work+<span></a></span>
                     {:else}
                         <span id="workInfo">{work}</span>
@@ -94,7 +94,7 @@ onMount(async()=>{
                     
 
                     <h4 id="location">Location</h4>
-                    {#if location === undefined || location === null}
+                    {#if location === undefined || location === null || location === ''}
                         <span id="locationInfo"><Link to={"/editprofile"}><span class="text-white">Update Location+</span></Link></span>
                     {:else}
                         <span id="locationInfo">{location}</span>

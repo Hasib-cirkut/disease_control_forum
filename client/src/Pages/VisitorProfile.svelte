@@ -63,7 +63,7 @@ onMount(async()=>{
                     <Link to={'/addpost'}><button id="addpost-btn">Post Something</button></Link>
 
 
-                    {#if bio === undefined || bio === null}
+                    {#if bio === undefined || bio === null || bio === ''}
                         <p id="bio">
                             <span class="text-white">Bio not set</span>
                         </p>
@@ -75,7 +75,7 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    {#if work === undefined || work === null}
+                    {#if work === undefined || work ===  || work === ''}
                       <p id="workInfo">
                         <span class="text-white">Work not set<span>
                       </p>
@@ -85,7 +85,7 @@ onMount(async()=>{
                     
 
                     <h4 id="location">Location</h4>
-                    {#if location === undefined || location === null}
+                    {#if location === undefined || location === null || location === ''}
                         <p id="locationInfo">
                             <span class="text-white">Location not set</span>
                         </p>

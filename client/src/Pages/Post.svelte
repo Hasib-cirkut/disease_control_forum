@@ -74,7 +74,7 @@
 
             <div class="mt-4">
                 
-                <span>written by</span><a class="inline-block ml-4" href={`/profile/${author}`}><span class="text-orange-400">@{author}</span></a>
+                <span>written by</span><a class="inline-block ml-4" href={`/_profile/${author}`}><span class="text-orange-400">@{author}</span></a>
             
             </div>
 
@@ -103,7 +103,7 @@
     <div class="right-bar">
         <div id="userIntro">
             <h3>{name}</h3>
-            <a href='/profile'><h4>@{author}</h4></a>
+            <a href={`/_profile/${author}`}><h4>@{author}</h4></a>
 
             <p>{bio}</p>
             <button>Follow</button><br>
