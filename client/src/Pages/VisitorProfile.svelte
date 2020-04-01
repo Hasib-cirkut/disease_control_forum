@@ -1,6 +1,6 @@
 
 <script>
-export let currentUsername;
+export let username;
 
 import Navbar from '../Components/Navbar.svelte'
 import { Link } from "svelte-routing";
@@ -8,13 +8,14 @@ import Login from '../Pages/Login.svelte'
 import {getFetch} from '../Js/Fetch.js'
 import {onMount} from 'svelte'
 
+
 import readableDate from '../Js/readableDate'
 
-let name, bio = '', joined, location = '', work = '', username= ''
+let  name = '', bio = '', joined, location = '', work = '';
 
 let userloggedin
-let viewData = []
-let userData = []
+let viewData = [];
+let userData = [];
 let followButton;
 
 if(localStorage.length === 0){
@@ -25,27 +26,15 @@ if(localStorage.length === 0){
 
 onMount(async()=>{
 
-
-    ///View data is user post data
-    viewData = await getFetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
-
-    let localUserData = JSON.parse(localStorage.userdata)
-
-    console.log(viewData)
-
-    name = localUserData.name
-    username = localUserData.username
-    joined = readableDate(localUserData.joined)
-    location = localUserData.location
-    work = localUserData.work
-    bio = localUserData.bio
+    viewData = await getFetch(`http://localhost:3000/posts/byuser/${username}`)
     
+    userData = await getFetch(`http://localhost:3000/users/byuser/${username}`)
 
-    if(currentUsername === username){
-        followButton = false
-    }else{
-        followButton = true;
-    }
+    name        = userData[0].name
+    bio         = userData[0].bio
+    joined      = readableDate(userData[0].joined)
+    location    = userData[0].location
+    work        = userData[0].work
 })
 
 </script>
@@ -75,9 +64,9 @@ onMount(async()=>{
 
 
                     {#if bio === undefined || bio === null}
-                        <p id="bio"><Link to={"/editprofile"}>
-                            <span class="text-white">Update Bio+</span>
-                        </Link></p>
+                        <p id="bio">
+                            <span class="text-white">Bio not set</span>
+                        </p>
                     {:else}
                         <p id="bio">{bio}</p>
                     {/if}
@@ -87,7 +76,9 @@ onMount(async()=>{
 
                     <h4 id="work">Work</h4>
                     {#if work === undefined || work === null}
-                      <span id="workInfo"><a href="/editprofile"><span class="text-white">Update Work+<span></a></span>
+                      <p id="workInfo">
+                        <span class="text-white">Work not set<span>
+                      </p>
                     {:else}
                         <span id="workInfo">{work}</span>
                     {/if}
@@ -95,7 +86,9 @@ onMount(async()=>{
 
                     <h4 id="location">Location</h4>
                     {#if location === undefined || location === null}
-                        <span id="locationInfo"><Link to={"/editprofile"}><span class="text-white">Update Location+</span></Link></span>
+                        <p id="locationInfo">
+                            <span class="text-white">Location not set</span>
+                        </p>
                     {:else}
                         <span id="locationInfo">{location}</span>
                     {/if}

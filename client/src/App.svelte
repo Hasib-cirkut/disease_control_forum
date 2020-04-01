@@ -6,6 +6,7 @@
 	import Index from './Pages/Index.svelte'
 	import About from './Pages/About.svelte'
 	import Profile from './Pages/Profile.svelte'
+	import VisitorProfile from './Pages/VisitorProfile.svelte'
 	import Post from './Pages/Post.svelte'
 	import AddPost from './Pages/AddPost.svelte'
 	import EditProfile from './Pages/EditProfile.svelte'
@@ -32,6 +33,10 @@
 
 		<Route path="/profile/:user" exact let:params>
 			<Profile currentUsername={params.user} />
+		</Route>
+
+		<Route path="/_profile/:user" exact let:params>
+			<VisitorProfile username={params.user} />
 		</Route>
 
 		<Route path="/posts/:id" exact let:params>

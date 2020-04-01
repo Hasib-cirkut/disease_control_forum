@@ -16,6 +16,9 @@ router.get('/', async (req, res)=>{
 router.get('/byuser/:username', async (req, res)=>{
     try{
         let data = await UserModel.find({username: req.params.username})
+
+        data[0].password = ''
+
         res.json(data)
     }catch(err){
         res.json({message: err})
