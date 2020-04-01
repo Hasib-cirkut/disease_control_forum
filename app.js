@@ -11,6 +11,7 @@ const postRoute = require('./Routes/posts')
 const userRoute = require('./Routes/users')
 const reportRoute = require('./Routes/reports')
 const searchRoute = require('./Routes/search')
+const commentRoute = require('./Routes/comments')
 
 //middleWare
 
@@ -19,6 +20,7 @@ app.use('/posts', postRoute)
 app.use('/users', userRoute)
 app.use('/reports', reportRoute)
 app.use('/search', searchRoute)
+app.use('/comment', commentRoute)
 
 app.use(express.urlencoded({
     extended: false
