@@ -2,6 +2,7 @@
     export let id;
 
     import Navbar from '../Components/Navbar.svelte'
+    import CommentCard from '../Components/CommentCard.svelte'
     import {onMount} from 'svelte'
     import {getFetch, postFetch} from '../Js/Fetch.js'
 
@@ -93,7 +94,8 @@
 
         <div class="pt-4">
 
-            <h1>This is the commnets section</h1>
+            <CommentCard />
+            <CommentCard />
         
         </div>
 

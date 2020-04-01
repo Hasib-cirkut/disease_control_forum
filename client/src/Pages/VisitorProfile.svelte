@@ -75,7 +75,7 @@ onMount(async()=>{
                 <div class="additional-info">
 
                     <h4 id="work">Work</h4>
-                    {#if work === undefined || work ===  || work === ''}
+                    {#if work === undefined || work === null || work === ''}
                       <p id="workInfo">
                         <span class="text-white">Work not set<span>
                       </p>
