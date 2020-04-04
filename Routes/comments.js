@@ -13,13 +13,16 @@ router.get('/:post_id', async (req, res)=>{
 router.post('/', async (req, res)=>{
     let {author, body, post_id} = req.body
 
+
     let comment = new CommentModel({
         author, body, post_id
     })
 
     let reData = await comment.save()
 
-    res.json(reData)
+    res.json({
+        message: "commentadded"
+    })
 })
 
 

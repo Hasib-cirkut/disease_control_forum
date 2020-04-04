@@ -10,14 +10,23 @@
     let loved = false;
     let data;
     let title = '', author='', body=''
-    let name,username, bio, joined, location, work= ''
+    let name,username = '', bio, joined, location, work= ''
     let commentBody = ''
+    let commentData = [];
+
+    let noComments = true
 
     onMount(async ()=>{
 
         let reData = await getFetch(`http://localhost:3000/posts/${id}`)
 
         let authorData = await getFetch(`http://localhost:3000/users/bypost/${reData[0].author}`)
+
+        commentData = await getFetch(`http://localhost:3000/comment/${id}`)
+
+        if(commentData.length > 0){
+            noComments = false
+        }
 
         title = reData[0].title
         author = reData[0].author
@@ -28,7 +37,30 @@
         work = authorData[0].work
         location = authorData[0].location
 
+        username = localStorage.getItem('userdata')
+
+        username = JSON.parse(username).username
+
     })
+
+    const handleComment = async e =>{
+        e.preventDefault()
+
+        let data = document.getElementById("x").value
+
+        data = data.replace("<div>", "")
+        data = data.replace("</div>", "")
+
+        let reData = await postFetch(`http://localhost:3000/comment/`, {
+            post_id: id,
+            author: username,
+            body: data
+        })
+
+        if(reData.message === 'commentadded'){
+            commentData = await getFetch(`http://localhost:3000/comment/${id}`)
+        }
+    }
 </script>
 
 <svelte:head>
@@ -103,12 +135,12 @@
 
         <div class="mt-8 bg-offwhite text-xl text-gray-800 rounded-sm">
 
-
-            <trix-editor></trix-editor>
+            <input id="x" value="" type="hidden" name="content">
+            <trix-editor class="px-4" input='x' id="trix"></trix-editor>
 
             <div class="text-center py-4">
                 
-                <button class="bg-red-600 mx-auto py-1 px-2 rounded-sm bg-green-700 text-offwhite">COMMENT</button>
+                <button on:click={handleComment} class="bg-red-600 mx-auto py-1 px-2 rounded-sm bg-green-700 text-offwhite">COMMENT</button>
             
             </div>
         
@@ -118,7 +150,18 @@
 
         <div class="pt-4">
 
-            <CommentCard body="The quick brown fox jumps over the lazy dog" username="Hasib"/>
+            {#if noComments === true}
+                <p>Add comments. Share your thoughts</p>
+            {:else}
+                
+                {#each commentData as data}
+                    
+                    <CommentCard body={data.body} username={data.author}/>
+
+                {/each}
+
+            {/if}
+
         
         </div>
 
