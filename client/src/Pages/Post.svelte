@@ -11,6 +11,7 @@
     let data;
     let title = '', author='', body=''
     let name,username, bio, joined, location, work= ''
+    let commentBody = ''
 
     onMount(async ()=>{
 
@@ -29,6 +30,13 @@
 
     })
 </script>
+
+<svelte:head>
+
+  <link rel="stylesheet" type="text/css" href="/trix/trix.css">
+  <script type="text/javascript" src="/trix/trix.js"></script>
+
+</svelte:head>
 
 
 
@@ -91,11 +99,26 @@
 
         <hr>
 
+        <span class="text-2xl font-light">Commments</span>
+
+        <div class="mt-8 bg-offwhite text-xl text-gray-800 rounded-sm">
+
+
+            <trix-editor></trix-editor>
+
+            <div class="text-center py-4">
+                
+                <button class="bg-red-600 mx-auto py-1 px-2 rounded-sm bg-green-700 text-offwhite">COMMENT</button>
+            
+            </div>
+        
+        
+        </div>
+
 
         <div class="pt-4">
 
-            <CommentCard />
-            <CommentCard />
+            <CommentCard body="The quick brown fox jumps over the lazy dog" username="Hasib"/>
         
         </div>
 

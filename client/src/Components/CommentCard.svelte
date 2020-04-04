@@ -1,3 +1,12 @@
+<script>
+
+    export let username;
+    export let body;
+
+
+</script>
+
+
 <div class="w-full h-auto bg-gray-800 rounded-sm mb-2 py-8">
 
     <div class="flex flex-col px-8">
@@ -6,11 +15,11 @@
             <div class="rounded h-10 w-10 bg-teal-800">
             </div>
 
-            <h3 class="ml-4 font-normal text-xl">Hasibul Huda</h3>
+            <h3 class="ml-4 font-normal text-xl">{username}</h3>
         </div>
 
         <div class="py-2 font-light text-lg pb-4 mb-2">
-            <p class="">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.</p>
+            <p class="">{body}</p>
         </div>
 
 
