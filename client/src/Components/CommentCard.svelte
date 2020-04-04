@@ -19,7 +19,7 @@
         </div>
 
         <div class="py-2 font-light text-lg pb-4 mb-2">
-            <p class="">{body}</p>
+            <p bind:innerHTML={body} contenteditable="false"></p>
         </div>
 
 

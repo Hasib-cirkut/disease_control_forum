@@ -48,8 +48,8 @@
 
         let data = document.getElementById("x").value
 
-        data = data.replace("<div>", "")
-        data = data.replace("</div>", "")
+        //data = data.replace("<div>", "")
+        //data = data.replace("</div>", "")
 
         let reData = await postFetch(`http://localhost:3000/comment/`, {
             post_id: id,
@@ -136,7 +136,7 @@
         <div class="mt-8 bg-offwhite text-xl text-gray-800 rounded-sm">
 
             <input id="x" value="" type="hidden" name="content">
-            <trix-editor class="px-4" input='x' id="trix"></trix-editor>
+            <trix-editor class="px-4 trix-content" input='x' id="trix"></trix-editor>
 
             <div class="text-center py-4">
                 
@@ -156,7 +156,9 @@
                 
                 {#each commentData as data}
                     
-                    <CommentCard body={data.body} username={data.author}/>
+                    <CommentCard body={data.body} username={data.author} class="trix-content"/>
+
+                    
 
                 {/each}
 
@@ -288,5 +290,31 @@
         
     }
 
+ .trix-content {
+  line-height: 1.5;
+  }
+  .trix-content * {
+    box-sizing: border-box; }
+  .trix-content h1 {
+    font-size: 1.2em;
+    line-height: 1.2;
+    margin: 0; }
+  .trix-content blockquote {
+    margin: 0 0 0 0.3em;
+    padding: 0 0 0 0.6em;
+    border-left: 0.3em solid #ccc; }
+  .trix-content pre {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    font-family: monospace;
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0.5em;
+    white-space: pre;
+    background-color: #eee;
+    overflow-x: auto; }
+
 
 </style>
+
