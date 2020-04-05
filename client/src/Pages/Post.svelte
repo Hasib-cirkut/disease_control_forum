@@ -3,6 +3,7 @@
 
     import Navbar from '../Components/Navbar.svelte'
     import CommentCard from '../Components/CommentCard.svelte'
+    import AuthorPostCard from '../Components/AuthorPostCard.svelte'
     import {onMount} from 'svelte'
     import {getFetch, postFetch} from '../Js/Fetch.js'
 
@@ -13,6 +14,7 @@
     let name,username = '', bio, joined, location, work= ''
     let commentBody = ''
     let commentData = [];
+    let authorData = []
 
     let noComments = true
     let blankCommentError = false;
@@ -21,7 +23,7 @@
 
         let reData = await getFetch(`http://localhost:3000/posts/${id}`)
 
-        let authorData = await getFetch(`http://localhost:3000/users/bypost/${reData[0].author}`)
+        authorData = await getFetch(`http://localhost:3000/users/bypost/${reData[0].author}`)
 
         commentData = await getFetch(`http://localhost:3000/comment/${id}`)
 
@@ -32,11 +34,6 @@
         title = reData[0].title
         author = reData[0].author
         body = reData[0].body
-
-        name = authorData[0].name
-        bio = authorData[0].bio
-        work = authorData[0].work
-        location = authorData[0].location
 
         username = localStorage.getItem('userdata')
 
@@ -190,24 +187,35 @@
     </div>
 
     <div class="right-bar">
-        <div id="userIntro">
-            <h3>{name}</h3>
-            <a href={`/_profile/${author}`}><h4>@{author}</h4></a>
+        
+        <div class="px-24">
 
-            <p>{bio}</p>
-            <button>Follow</button><br>
+            {#each authorData as data}
 
-            <span>Work</span><br>
-            <h6>{work}</h6>
-            <span>location</span>
-            <h6>{location}</h6>
+                <div class="flex flex-col w-100 min-h-full bg-offwhite mt-16 rounded-sm">
+
+                    <div class="text-center text-black rounded-sm"> 
+
+                        <p class="py-4 bg-teal-300">{data.name}</p>
+                        <p class="py-4 bg-teal-400 ">{data.bio}</p>
+                        <p class="py-4 bg-teal-500 ">{data.location}</p>
+                        <p class="py-4 bg-teal-600 ">{data.work}</p>
+
+                        <p class="py-4 bg-teal-700 cursor-pointer" on:click={ ()=> window.location.replace(`/_profile/${data.username}`) }>Visit Profile</p>
+                    </div>
+                
+                </div>
+
+            {/each}
+
         </div>
+
     </div>
 </div>
 
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 
     *{
         box-sizing: border-box;
@@ -216,21 +224,10 @@
 
     .left-bar{
         grid-area: left-bar;
-
-        
-    
-
-        border-right: 1px solid #000000;
-        box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.25);
-        
     }
 
     .right-bar{
         grid-area: right-bar;
-
-
-        border-left: 1px solid #000000;
-        box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.25);
     }
 
     .main-post{
