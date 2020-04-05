@@ -7,32 +7,32 @@
 </script>
 
 
-<div class="w-full h-auto bg-gray-800 rounded-sm mb-2 py-8">
+<div class="w-full h-auto bg-offwhite rounded-sm mb-2 py-8">
 
     <div class="flex flex-col px-8">
 
-        <div class="flex text-gray-100 mb-2 py-4 items-center">
+        <div class="flex text-gray-800 mb-2 py-4 items-center">
             <div class="rounded h-10 w-10 bg-teal-800">
             </div>
 
             <h3 class="ml-4 font-normal text-xl">{username}</h3>
         </div>
 
-        <div class="py-2 font-light text-lg pb-4 mb-2">
+        <div class="py-2 text-black text-lg pb-4 mb-2">
             <p bind:innerHTML={body} contenteditable="false"></p>
         </div>
 
 
         <div class="flex justify-between w-2/5">
 
-            <div class="text-white text-center cursor-pointer tracking-wider">
+            <div class="text-black text-center cursor-pointer tracking-wider">
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 485.027 485.027" class="w-8 h-8 fill-current" ><path d="M109.4 459.991H13c-2.1 0-3.9-1.8-3.9-3.9v-248.4c0-2.1 1.8-3.9 3.9-3.9h96.4c2.1 0 3.9 1.8 3.9 3.9v248.4c0 2.1-1.7 3.9-3.9 3.9z" fill="#3c92ca"/><path d="M284.6 20.391c-28.2-20.7-67.2-8.8-68.8-8.3-3.8 1.2-6.3 4.7-6.3 8.6v85.8c0 29.1-13.8 53.7-41.1 73.2-21.1 15.1-42.7 21.3-42.9 21.4-.2 0-.3.1-.5.2l-5.1 1.7c-3-4.9-8.3-8.2-14.5-8.2H16.9c-9.3 0-16.9 7.6-16.9 16.9v240.5c0 9.3 7.6 16.9 16.9 16.9h88.6c8 0 14.7-5.6 16.4-13 11.9 12.7 28.8 20.7 47.6 20.7h209.8c44.6 0 73.1-23.3 78.1-64l26.8-170.2c3.9-24.7-6.2-49.7-25.8-63.7-11.1-8-24.2-12.2-37.9-12.2H311.4v-79.6c0-31.2-9-53.6-26.8-66.7zm-180.4 430.5H18.1v-238h86.1v238zm316.3-266.1c9.9 0 19.3 3 27.3 8.8 14 10.1 21.3 28.2 18.4 46.2l-26.7 170.3v.3c-4.9 39.8-35.4 48.2-60.2 48.2H169.5c-26 0-47.1-21.1-47.1-47.1v-190.2l8.3-2.8c2.9-.8 25.2-7.6 47.8-23.7 32.1-22.8 49.1-53.3 49.1-88.2v-78.6c10.4-2 31.3-4 46.4 7.1 12.8 9.4 19.3 26.9 19.3 52v88.7c0 5 4.1 9.1 9.1 9.1h118.1v-.1z"/></svg>
                 <span class="">like</span>
             
             </div>
 
-            <div class="text-white text-center cursor-pointer tracking-wider">
+            <div class="text-black text-center cursor-pointer tracking-wider">
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-8 w-8 fill-current"><path d="M234.667 170.844V96c0-17.646-14.354-32-32-32-7.938 0-15.604 3.042-21.542 8.563l-13.771 12.74C122.042 127.229 46.188 197.396 7.375 236.323 2.625 241.115 0 248.094 0 256s2.625 14.885 7.375 19.688c38.813 38.917 114.667 109.083 159.979 151.01l13.771 12.74c5.938 5.521 13.604 8.563 21.542 8.563 17.646 0 32-14.354 32-32v-74.594c153.604 2.156 256 50.604 256 95.927a10.66 10.66 0 0010.667 10.667 10.66 10.66 0 0010.667-10.667c-.001-143.74-123.438-261.282-277.334-266.49zM224 320a10.66 10.66 0 00-10.667 10.667V416c0 5.885-4.792 10.667-10.667 10.667-3.25 0-5.625-1.563-7.042-2.875l-13.771-12.75C136.646 369.219 61 299.24 22.5 260.635c-.583-.583-1.167-2.25-1.167-4.635s.583-4.052 1.167-4.625C61 212.76 136.646 142.781 181.854 100.958l13.771-12.75c1.417-1.313 3.792-2.875 7.042-2.875 5.875 0 10.667 4.781 10.667 10.667v85.333A10.66 10.66 0 00224.001 192c128.25 0 235.646 83.729 261 194.885C439.479 347.01 340.917 320 224 320z"/></svg>
                 <span>reply</span>

@@ -15,6 +15,7 @@
     let commentData = [];
 
     let noComments = true
+    let blankCommentError = false;
 
     onMount(async ()=>{
 
@@ -48,17 +49,24 @@
 
         let data = document.getElementById("x").value
 
-        //data = data.replace("<div>", "")
-        //data = data.replace("</div>", "")
+        if(data === ""){
 
-        let reData = await postFetch(`http://localhost:3000/comment/`, {
-            post_id: id,
-            author: username,
-            body: data
-        })
+            blankCommentError = true
 
-        if(reData.message === 'commentadded'){
-            commentData = await getFetch(`http://localhost:3000/comment/${id}`)
+        }else{
+
+            blankCommentError = false
+
+            let reData = await postFetch(`http://localhost:3000/comment/`, {
+                post_id: id,
+                author: username,
+                body: data
+            })
+
+            if(reData.message === 'commentadded'){
+                commentData = await getFetch(`http://localhost:3000/comment/${id}`)
+            }
+
         }
     }
 </script>
@@ -135,8 +143,16 @@
 
         <div class="mt-8 bg-offwhite text-xl text-gray-800 rounded-sm">
 
-            <input id="x" value="" type="hidden" name="content">
+            <input id="x" value="" type="hidden" name="content" >
             <trix-editor class="px-4 trix-content" input='x' id="trix"></trix-editor>
+
+            {#if blankCommentError === true}
+            
+                <div class="w-full h-10 bg-red-600 text-center transition duration-150 ease-in-out">
+                    <p class="font-bold text-white">Can't process blank comment</p>
+                </div>
+
+            {/if}
 
             <div class="text-center py-4">
                 
@@ -151,14 +167,17 @@
         <div class="pt-4">
 
             {#if noComments === true}
-                <p>Add comments. Share your thoughts</p>
+
+                <div class="text-center mt-8">
+                    
+                    <p class="text-xl">Add comments. Share your thoughts.</p>
+                
+                </div>
             {:else}
                 
                 {#each commentData as data}
                     
-                    <CommentCard body={data.body} username={data.author} class="trix-content"/>
-
-                    
+                    <CommentCard body={data.body} username={data.author}/>
 
                 {/each}
 
