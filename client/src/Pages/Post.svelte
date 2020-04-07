@@ -126,9 +126,7 @@
 
             <div class="mt-8 text-lg tracking-wide font-normal">
             
-                <p>
-                    {body}
-                </p>
+                <p bind:innerHTML={body} contenteditable="false"></p>
             
             </div>
         

@@ -75,7 +75,6 @@ router.post('/login', async (req, res)=>{
 
     let receivedData = await UserModel.find({username})
 
-    console.log(receivedData);
 
     if(receivedData.length === 0){
         res.json({message: 'nouserfound'})

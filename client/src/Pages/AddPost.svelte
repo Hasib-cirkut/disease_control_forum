@@ -3,13 +3,16 @@
     import Index from '../Pages/Index.svelte'
     import {postFetch} from '../Js/Fetch'
 
-    let title = '', tags = '', body = '';
+    let title = '', tags = '';
     let showTitleError = false;
     let postAdded = false;
     let user = localStorage.getItem('user')
 
     const handlePublish = async e =>{
         e.preventDefault()
+
+        let body = document.getElementById("x").value
+
 
         if(title ==='' || title === undefined){
             showTitleError = true;
@@ -24,11 +27,16 @@
             }
 
         }
-
-        
         
     }
 </script>
+
+<svelte:head>
+
+  <link rel="stylesheet" type="text/css" href="/trix/trix.css">
+  <script type="text/javascript" src="/trix/trix.js"></script>
+
+</svelte:head>
 
 
 {#if postAdded}
@@ -53,7 +61,16 @@
 
             <input type="text" id="title" placeholder="Title" required bind:value={title}>
             <input type="text" id="tags" placeholder="4 Tags max. space separated." required bind:value={tags}>
-            <textarea id="body" cols="30" rows="30" required bind:value={body}></textarea>
+            <!-- <textarea id="x" cols="30" rows="30" required bind:value={body}></textarea> -->
+
+            <div class="mt-4">
+
+                <input id="x" value="" type="hidden" name="content" class="h-100">
+                <trix-editor class="trix-content h-full border-none" input='x' id="trix" placeholder></trix-editor>
+            
+            </div>
+
+
         
     </div>
 
@@ -70,6 +87,7 @@
 
 
 <style>
+
 
     .left-bar{
         grid-area: left-bar;
@@ -90,6 +108,7 @@
 
     .main-input > *{
         margin-left: 2vw;
+        margin-right: 2vw;
     }
 
     .main-input > input{
