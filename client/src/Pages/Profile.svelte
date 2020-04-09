@@ -5,7 +5,7 @@ export let currentUsername;
 import Navbar from '../Components/Navbar.svelte'
 import { Link } from "svelte-routing";
 import Login from '../Pages/Login.svelte'
-import {getFetch} from '../Js/Fetch.js'
+import {getFetch, deleteFetch} from '../Js/Fetch.js'
 import {onMount} from 'svelte'
 
 import readableDate from '../Js/readableDate'
@@ -47,6 +47,16 @@ onMount(async()=>{
         followButton = true;
     }
 })
+
+const handleRemove = async e =>{
+    e.preventDefault()
+
+    let reData = await deleteFetch(`http://localhost:3000/posts/delete/${event.target.name}`)
+
+        if(reData.message === 'deleted'){
+            viewData = await getFetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
+        }
+}
 
 </script>
 
@@ -113,6 +123,17 @@ onMount(async()=>{
             <div class="userPosts">
 
             {#each viewData as post}
+            <div class="flex">
+
+                <div class="w-full flex">
+                
+                    <button name={post._id} class="mr-4 h-8 w-20 bg-teal-300 rounded-sm border-black">edit post</button>
+                    <button name={post._id} on:click={handleRemove} class="h-8 w-20 bg-red-600 rounded-sm border-black">remove</button>
+                
+                </div>
+            
+            </div>
+
             <Link to={`/posts/${post._id}`}>
                 <div class="post" name={post._id}>
 
@@ -126,6 +147,7 @@ onMount(async()=>{
 
                 </div>
             </Link>
+
             {/each}
             
                 
@@ -156,8 +178,6 @@ onMount(async()=>{
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
     *{
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
         font-family: "monserrat", sans-serif;
     }
