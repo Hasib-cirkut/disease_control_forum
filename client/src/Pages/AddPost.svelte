@@ -66,7 +66,7 @@
             <div class="mt-4">
 
                 <input id="x" value="" type="hidden" name="content" class="h-100">
-                <trix-editor class="trix-content h-full border-none" input='x' id="trix" placeholder></trix-editor>
+                <trix-editor class="mt-8 trix-content h-72 border-none overflow-y-auto" input='x' id="trix" placeholder></trix-editor>
             
             </div>
 
@@ -97,7 +97,7 @@
         grid-area: main-input;
         display: flex;
         flex-direction: column;
-        height: 70%;
+        height: 80%;
         margin-top: 13vh;
 
         background: #FFFFFF;

@@ -6,6 +6,10 @@ module.exports = {
           blueishblack: "#1D1F24",
           "gray-850": "#45474E",
         },
+
+        height:{
+          "72" : "25rem" 
+        }
     },
   },
   variants: {},
