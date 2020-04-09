@@ -15,6 +15,7 @@
 	import NotFound from './Pages/NotFound.svelte'
 	import Tailwindcss from './Tailwindcss.svelte'
 	import IndexSearch from './Pages/IndexSearch.svelte'
+	import EditPost from './Pages/EditPost.svelte'
 
 </script>
 
@@ -45,6 +46,10 @@
 		
 		<Route path="/addpost" exact component={AddPost} />
 		<Route path="/editprofile" exact component={EditProfile} />
+
+		<Route path="/editpost/:id" exact let:params>
+			<EditPost id={params.id} />
+		</Route>
 		
 
 		<Route path="/report/:post_id" exact let:params>

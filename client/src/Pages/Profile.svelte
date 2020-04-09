@@ -127,7 +127,7 @@ const handleRemove = async e =>{
 
                 <div class="w-full flex">
                 
-                    <button name={post._id} class="mr-4 h-8 w-20 bg-teal-300 rounded-sm border-black">edit post</button>
+                    <a href={`/editpost/${post._id}`} class="mr-4 h-8 w-20 bg-teal-300 rounded-sm border-black">edit post</a>
                     <button name={post._id} on:click={handleRemove} class="h-8 w-20 bg-red-600 rounded-sm border-black">remove</button>
                 
                 </div>
