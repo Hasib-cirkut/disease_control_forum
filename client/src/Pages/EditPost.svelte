@@ -1,6 +1,6 @@
 <script>
     
-    import {onMount} from 'svelte'
+    import {onMount, afterUpdate} from 'svelte'
     
     import Navbar from '../Components/Navbar.svelte'
     import Index from '../Pages/Index.svelte'
@@ -23,33 +23,24 @@
         tags = reData[0].tags
         body = reData[0].body
 
-
-        console.log(document.getElementById("x"))
+        console.log(reData[0])
         
     })
+
 
     const handleUpdate = async e =>{
         e.preventDefault()
 
-        // let body = document.getElementById("x").value
-
-
-        // if(title ==='' || title === undefined){
-        //     showTitleError = true;
-        // }else{
-
-        //     let data = {title, tags, body, user}
-
-        //     let reData = await postFetch('http://localhost:3000/posts/addpost', data)
-
-        //     if(reData.message === 'postadded'){
-        //         postAdded = true;
-        //     }
-
-        // }
-
         console.log(body)
         
+    }
+
+    const handleBold = e =>{
+        document.execCommand("bold")
+    }
+
+    const handleItalic = e =>{
+        document.execCommand("italic")
     }
 </script>
 
@@ -87,8 +78,20 @@
 
             <div class="mt-4">
 
-                <input id="x" bind:value={body}  type="hidden" name="content" class="h-100">
-                <trix-editor class="mt-8 trix-content h-72 border-none overflow-y-auto" input='x' id="trix" placeholder></trix-editor>
+                <div id="editable" bind:innerHTML={body} contenteditable="true" class="overflow-y-auto h-72">
+
+
+                
+                </div>
+                
+                <div class="w-full h-8 mt-4">
+                    <div class="flex">
+
+                        <button on:click={handleBold} class="bg-gray-300 w-16 p-1 font-bold rounded-sm">Bold</button>
+                        <button on:click={handleItalic} class="ml-2 bg-gray-300 w-16 p-1 italic rounded-sm">Italic</button>
+                    
+                    </div>
+                </div>
             
             </div>
 
