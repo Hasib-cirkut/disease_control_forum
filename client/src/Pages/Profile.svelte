@@ -5,11 +5,13 @@ export let currentUsername;
 import Navbar from '../Components/Navbar.svelte'
 import { Link } from "svelte-routing";
 import Login from '../Pages/Login.svelte'
-import {getFetch, deleteFetch} from '../Js/Fetch.js'
+import {getFetch, deleteFetch, postFetch} from '../Js/Fetch.js'
 import {onMount} from 'svelte'
 
 import readableDate from '../Js/readableDate'
 
+
+let admin = false;
 let name, bio = '', joined, location = '', work = '', username= ''
 
 let userloggedin
@@ -31,14 +33,15 @@ onMount(async()=>{
 
     let localUserData = JSON.parse(localStorage.userdata)
 
-    console.log(viewData)
-
     name = localUserData.name
     username = localUserData.username
     joined = readableDate(localUserData.joined)
     location = localUserData.location
     work = localUserData.work
     bio = localUserData.bio
+
+    if(localUserData.type === 'admin')
+        admin = true;
     
 
     if(currentUsername === username){
@@ -56,6 +59,17 @@ const handleRemove = async e =>{
         if(reData.message === 'deleted'){
             viewData = await getFetch(`http://localhost:3000/posts/byuser/${currentUsername}`)
         }
+}
+
+const handleReqAdmin = async e =>{
+    e.preventDefault();
+
+
+    let reData = await postFetch('http://localhost:3000/users/adminshipreq', {username})
+
+
+    if(reData.message === 'reqadded')
+        alert('Req sent')
 }
 
 </script>
@@ -82,7 +96,12 @@ const handleRemove = async e =>{
                     {/if}
 
                     <Link to={'/addpost'}><button id="addpost-btn">Post Something</button></Link>
-
+                    
+                    {#if admin}
+                        <Link to={'/dashboard'}><button id="addpost-btn">Dashboard</button></Link>
+                    {:else}
+                        <button on:click={handleReqAdmin} id="addpost-btn">Request Adminship</button>
+                    {/if}
 
                     {#if bio === undefined || bio === null || bio === ''}
                         <p id="bio"><Link to={"/editprofile"}>

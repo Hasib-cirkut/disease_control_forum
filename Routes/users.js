@@ -1,122 +1,140 @@
-const express = require('express')
+const express = require('express');
 
-const router = express.Router()
+const router = express.Router();
 
-const UserModel = require('../Models/Users')
+const UserModel = require('../Models/Users');
+const AdminReqModel = require('../Models/AdminReq.js');
 
-router.get('/', async (req, res)=>{
-    try{
-        let data = await UserModel.find()
-        res.json(data)
-    }catch(err){
-        res.json({message: err})
-    }
-})
+router.get('/', async (req, res) => {
+	try {
+		let data = await UserModel.find();
+		res.json(data);
+	} catch (err) {
+		res.json({ message: err });
+	}
+});
 
-router.get('/byuser/:username', async (req, res)=>{
-    try{
-        let data = await UserModel.find({username: req.params.username})
+router.get('/byuser/:username', async (req, res) => {
+	try {
+		let data = await UserModel.find({ username: req.params.username });
 
-        data[0].password = ''
+		data[0].password = '';
 
-        res.json(data)
-    }catch(err){
-        res.json({message: err})
-    }
-})
+		res.json(data);
+	} catch (err) {
+		res.json({ message: err });
+	}
+});
 
-router.get('/bypost/:username', async (req, res)=>{
-    try{
-        let data = await UserModel.find({username: req.params.username})
-        
-        data[0].password = ''
-        
-        res.json(data)
-    }catch(err){
-        res.json({message: err})
-    }
-})
+router.get('/bypost/:username', async (req, res) => {
+	try {
+		let data = await UserModel.find({ username: req.params.username });
 
-router.post('/addUser', async (req, res)=>{
+		data[0].password = '';
 
-        let {name, username, email, password} = req.body
-    
-        let user = new UserModel({
-            name,
-            username,
-            email,
-            age: '',
-            profession: '',
-            password,
-            type: "general"
-        })
+		res.json(data);
+	} catch (err) {
+		res.json({ message: err });
+	}
+});
 
-        let receivedData = await UserModel.find({username})
+router.post('/addUser', async (req, res) => {
+	let { name, username, email, password } = req.body;
 
-        if(receivedData.length === 0){
-            try{
-                let savedUser = await user.save()
-                res.json({
-                    message: 'useradded'
-                })
-            }catch(err){
-                res.json({message: err})
-            }
-        }else{
-            res.json({message: 'usernametaken'})
-        }
-})
+	let user = new UserModel({
+		name,
+		username,
+		email,
+		age: '',
+		profession: '',
+		password,
+		type: 'general'
+	});
 
+	let receivedData = await UserModel.find({ username });
 
-router.post('/login', async (req, res)=>{
+	if (receivedData.length === 0) {
+		try {
+			let savedUser = await user.save();
+			res.json({
+				message: 'useradded'
+			});
+		} catch (err) {
+			res.json({ message: err });
+		}
+	} else {
+		res.json({ message: 'usernametaken' });
+	}
+});
 
-    let username = req.body.username;
-    let password = req.body.password;
+router.post('/login', async (req, res) => {
+	let username = req.body.username;
+	let password = req.body.password;
 
-    let receivedData = await UserModel.find({username})
+	let receivedData = await UserModel.find({ username });
 
+	if (receivedData.length === 0) {
+		res.json({ message: 'nouserfound' });
+	} else {
+		if (receivedData[0].password !== password) {
+			res.json({ message: 'passworddoesnotmatch' });
+		} else {
+			let tempUserData = ({ name, username, work, location, joined, bio, profession, email } = receivedData[0]);
 
-    if(receivedData.length === 0){
-        res.json({message: 'nouserfound'})
-    }else{
-        if(receivedData[0].password !== password){
-            res.json({message: 'passworddoesnotmatch'})
-        }else{
+			res.json({ message: 'userfound', data: tempUserData });
+		}
+	}
+});
 
-            let tempUserData = {name, username, work, location, joined, bio, profession, email} = receivedData[0]
-    
+router.post('/updateprofile', async (req, res) => {
+	console.log(req.body);
 
-            res.json(
-                {message: 'userfound', data: tempUserData})
-        }
-    }
-})
+	let { name, username, location, work, bio, email, profession } = req.body;
 
-router.post('/updateprofile', async (req, res)=>{
+	let reData = await UserModel.update(
+		{ username: username },
+		{
+			$set: {
+				name: name,
+				username: username,
+				location: location,
+				work: work,
+				bio: bio,
+				email: email,
+				profession: profession
+			}
+		}
+	);
 
-    console.log(req.body);
-    
+	res.json(reData);
+});
 
-    let {name, username, location, work, bio, email, profession} = req.body;
-    
-    let reData  = await UserModel.update(
-        {username: username},
-        {
-            $set: {
-                name: name,
-                username: username,
-                location: location,
-                work: work,
-                bio: bio,
-                email: email,
-                profession: profession
-            }
-        }
-    )
+router.post('/adminshipreq', async (req, res) => {
+	let { username } = req.body;
 
-    res.json(reData)
-    
-})
+	console.log(req.body);
 
+	let model = new AdminReqModel({
+		username
+	});
 
-module.exports = router
+	try {
+		let savedUser = await model.save();
+		res.json({
+			message: 'reqadded'
+		});
+	} catch (err) {
+		res.json({ message: err });
+	}
+});
+
+router.get('/adminRequests', async (req, res) => {
+	try {
+		let data = await AdminReqModel.find();
+		res.json(data);
+	} catch (err) {
+		res.json({ message: err });
+	}
+});
+
+module.exports = router;
